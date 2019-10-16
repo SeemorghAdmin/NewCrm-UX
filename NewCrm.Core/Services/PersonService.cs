@@ -18,13 +18,18 @@ namespace NewCrm.Core.Services
         {
             _context = context;
         }
-        public async Task<bool> AddPerson(Person person)
+        public async Task<string> AddPerson(Person person)
         {
             await _context.People.AddAsync(person);
 
             await _context.SaveChangesAsync();
 
-            return true;
+            return person.PersonNationalId;
+        }
+
+        public async Task<bool> IsExistEmail(string email)
+        {
+            return await _context.People.AnyAsync(a => a.Email == email);
         }
 
         public async Task<bool> IsExistNationalId(string nationalId)

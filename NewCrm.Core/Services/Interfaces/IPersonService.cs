@@ -8,10 +8,12 @@ namespace NewCrm.Core.Services.Interfaces
 {
     public interface IPersonService
     {
-        Task<bool> AddPerson(Person person);
+        Task<string> AddPerson(Person person);
 
         Task<bool> IsExistUserName(string userName);
 
         Task<bool> IsExistNationalId(string nationalId);
+
+        Task<bool> IsExistEmail(string email);
     }
 }

@@ -15,6 +15,8 @@ namespace NewCrm.DataLayer.Context
 
         #region Entitis
         public DbSet<Person> People { get; set; }
+
+        public DbSet<Staff> Staffs { get; set; }
         #endregion
     }
 }

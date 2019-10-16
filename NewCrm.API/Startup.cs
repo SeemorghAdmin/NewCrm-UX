@@ -12,6 +12,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using NewCrm.DataLayer.Entities.User;
 using NewCrm.DataLayer.Context;
+using NewCrm.Core.Services;
+using NewCrm.Core.Services.Interfaces;
 
 namespace NewCrm.API
 {
@@ -32,6 +34,12 @@ namespace NewCrm.API
             #region DataContext
             services.AddDbContext<NewCrmContext>(option => 
                 option.UseSqlServer(Configuration.GetConnectionString("NewCrmConnection")));
+            #endregion
+
+            #region Intetfaces
+
+            services.AddTransient<IPersonService, PersonService>();
+            services.AddTransient<IStaffService, StaffService>();
             #endregion
         }
 

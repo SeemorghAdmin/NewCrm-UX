@@ -37,6 +37,10 @@ namespace NewCrm.DataLayer.Entities.User
 
         [MaxLength(100)]
         [Required]
+        public string Email { get; set; }
+
+        [MaxLength(100)]
+        [Required]
         public string UserName { get; set; }
 
         [MaxLength(64)]
@@ -56,5 +60,10 @@ namespace NewCrm.DataLayer.Entities.User
         public DateTime CreateTime { get; set; }
 
         public DateTime LastEditTime { get; set; }
+
+
+        #region Relations
+        
+        #endregion
     }
 }
