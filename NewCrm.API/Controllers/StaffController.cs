@@ -8,6 +8,7 @@ using NewCrm.Core.Services.Interfaces;
 using NewCrm.Core.DTOs;
 using NewCrm.DataLayer.Entities.User;
 using NewCrm.Core.Security;
+using NewCrm.Core.Convertors;
 
 namespace NewCrm.API.Controllers
 {
@@ -47,7 +48,7 @@ namespace NewCrm.API.Controllers
                 PersonNationalId = model.PersonNationalId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Email = model.Email,
+                Email = FixedText.FixedEmail(model.Email),
                 FatherName = model.FatherName,
                 Gender = model.Gender,
                 UserName = model.UserName,

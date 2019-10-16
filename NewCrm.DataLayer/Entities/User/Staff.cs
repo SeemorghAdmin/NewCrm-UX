@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace NewCrm.DataLayer.Entities.User
@@ -31,6 +32,7 @@ namespace NewCrm.DataLayer.Entities.User
         public string PersonNationalId { get; set; }
 
         #region Relations
+        [ForeignKey("PersonNationalId")]
         public virtual Person Person { get; set; }
         #endregion
       
