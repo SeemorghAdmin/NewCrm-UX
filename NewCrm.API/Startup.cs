@@ -14,6 +14,8 @@ using NewCrm.DataLayer.Entities.User;
 using NewCrm.DataLayer.Context;
 using NewCrm.Core.Services;
 using NewCrm.Core.Services.Interfaces;
+using NewCrm.Core.TicketServices.Interfaces;
+using NewCrm.Core.TicketServices;
 
 namespace NewCrm.API
 {
@@ -40,6 +42,8 @@ namespace NewCrm.API
 
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<IStaffService, StaffService>();
+            services.AddTransient<IserviceType, ServiceTypeService>();
+            services.AddTransient<ITicketService, TicketServices>();
             #endregion
         }
 
