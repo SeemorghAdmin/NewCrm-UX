@@ -33,6 +33,12 @@ namespace NewCrm.API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddCors(opt => opt.AddPolicy("Cors", builder => {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
             #region DataContext
             services.AddDbContext<NewCrmContext>(option => 
                 option.UseSqlServer(Configuration.GetConnectionString("NewCrmConnection")));
@@ -54,7 +60,7 @@ namespace NewCrm.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("Cors");
             app.UseMvc();
         }
     }
