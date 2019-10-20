@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewCrm.DataLayer.Context;
 
 namespace NewCrm.DataLayer.Migrations
 {
     [DbContext(typeof(NewCrmContext))]
-    partial class NewCrmContextModelSnapshot : ModelSnapshot
+    [Migration("20191020053035_AddTicketServices")]
+    partial class AddTicketServices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,9 +21,9 @@ namespace NewCrm.DataLayer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.ServiceType", b =>
+            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.TicketServiceType", b =>
                 {
-                    b.Property<int>("ServiceTypeId")
+                    b.Property<int>("TicketServiceTypeId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -36,14 +38,14 @@ namespace NewCrm.DataLayer.Migrations
                     b.Property<string>("FaName")
                         .HasMaxLength(100);
 
-                    b.Property<DateTime>("LastEditTime");
+                    b.Property<DateTime>("LastEditTiame");
 
-                    b.HasKey("ServiceTypeId");
+                    b.HasKey("TicketServiceTypeId");
 
-                    b.ToTable("ServiceTypes");
+                    b.ToTable("TicketServiceTypes");
                 });
 
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.Services", b =>
+            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.TicketServices", b =>
                 {
                     b.Property<int>("ServicesId")
                         .ValueGeneratedOnAdd()
@@ -62,68 +64,13 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.Property<DateTime>("LastEditTime");
 
-                    b.Property<int>("ServiceTypeId");
+                    b.Property<int>("TicketServiceTypeId");
 
                     b.HasKey("ServicesId");
 
-                    b.HasIndex("ServiceTypeId");
+                    b.HasIndex("TicketServiceTypeId");
 
-                    b.ToTable("Services");
-                });
-
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.Ticket", b =>
-                {
-                    b.Property<int>("TicketID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Active");
-
-                    b.Property<DateTime>("Closure");
-
-                    b.Property<DateTime>("DateOfCreation");
-
-                    b.Property<string>("PersonNationalId");
-
-                    b.Property<int>("ServiceId");
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(6);
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("TicketID");
-
-                    b.HasIndex("PersonNationalId");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("Tickets");
-                });
-
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.TicketingChat", b =>
-                {
-                    b.Property<int>("TicketingChatId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Comment");
-
-                    b.Property<DateTime>("CommentTime");
-
-                    b.Property<bool>("Confidential");
-
-                    b.Property<string>("PersonNationalId");
-
-                    b.Property<int>("TicketID");
-
-                    b.HasKey("TicketingChatId");
-
-                    b.HasIndex("PersonNationalId");
-
-                    b.HasIndex("TicketID");
-
-                    b.ToTable("TicketingChats");
+                    b.ToTable("TicketServices");
                 });
 
             modelBuilder.Entity("NewCrm.DataLayer.Entities.User.Person", b =>
@@ -219,35 +166,11 @@ namespace NewCrm.DataLayer.Migrations
                     b.ToTable("Staffs");
                 });
 
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.Services", b =>
+            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.TicketServices", b =>
                 {
-                    b.HasOne("NewCrm.DataLayer.Entities.Ticketing.ServiceType", "ServiceType")
+                    b.HasOne("NewCrm.DataLayer.Entities.Ticketing.TicketServiceType", "TicketServiceType")
                         .WithMany()
-                        .HasForeignKey("ServiceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.Ticket", b =>
-                {
-                    b.HasOne("NewCrm.DataLayer.Entities.User.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonNationalId");
-
-                    b.HasOne("NewCrm.DataLayer.Entities.Ticketing.Services", "Services")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.TicketingChat", b =>
-                {
-                    b.HasOne("NewCrm.DataLayer.Entities.User.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonNationalId");
-
-                    b.HasOne("NewCrm.DataLayer.Entities.Ticketing.Ticket", "Ticket")
-                        .WithMany()
-                        .HasForeignKey("TicketID")
+                        .HasForeignKey("TicketServiceTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

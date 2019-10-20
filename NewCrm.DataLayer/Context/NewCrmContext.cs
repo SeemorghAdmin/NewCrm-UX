@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using NewCrm.DataLayer.Entities.Ticketing;
 using NewCrm.DataLayer.Entities.User;
 
 namespace NewCrm.DataLayer.Context
@@ -15,8 +16,11 @@ namespace NewCrm.DataLayer.Context
 
         #region Entitis
         public DbSet<Person> People { get; set; }
-
         public DbSet<Staff> Staffs { get; set; }
+        public DbSet<ServiceType>  ServiceTypes { get; set; }
+        public DbSet<Services>  Services { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketingChat> TicketingChats { get; set; }
         #endregion
     }
 }
