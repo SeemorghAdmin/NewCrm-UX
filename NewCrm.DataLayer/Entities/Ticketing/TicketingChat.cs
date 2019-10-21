@@ -14,12 +14,12 @@ namespace NewCrm.DataLayer.Entities.Ticketing
         public int Ticket_ID { get; set; }
         public string Comment { get; set; }
         public DateTime CommentTime { get; set; }
-        public string PersonNationalId { get; set; }
+        public string PersonNational_ID { get; set; }
         public bool Confidential { get; set; }
         #region Relation
         [ForeignKey("Ticket_ID")]
         public virtual Ticket Ticket { get; set; }
-        [ForeignKey("PersonNationalId")]
+        [ForeignKey("PersonNational_ID")]
         public virtual Person Person { get; set; }
         #endregion
     }

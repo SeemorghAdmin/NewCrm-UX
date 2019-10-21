@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace NewCrm.Core.TicketServices
 {
@@ -34,6 +36,28 @@ namespace NewCrm.Core.TicketServices
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<IEnumerable<Ticket>> GetTicket()
+        {
+            var ticket = await (from a in _context.Tickets.Include(a => a.Services)
+                              .Include(a => a.Person)
+                             
+                              select new Ticket
+                              {
+                                 Ticket_ID=a.Ticket_ID,
+                                  Service_ID=a.Service_ID,
+                                  Title=a.Title,
+                                  PersonNational_ID=a.PersonNational_ID,
+                                  DateOfCreation=a.DateOfCreation,
+                                  Active=a.Active,
+                                  Status=a.Status,
+                                  Services=a.Services,
+                                  Person=a.Person
+                              }).ToListAsync();
+
+
+            return ticket;
         }
     }
 }
