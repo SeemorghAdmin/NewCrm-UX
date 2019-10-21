@@ -10,17 +10,17 @@ namespace NewCrm.DataLayer.Entities.Ticketing
    public class Ticket
     {
         [Key]
-        public int TicketID { get; set; }
-        public int ServiceId { get; set; }
+        public int TicketId { get; set; }
+        public int Service_ID { get; set; }
         public  string Title { get; set; }
         public string PersonNationalId { get; set; }
         public DateTime DateOfCreation { get; set; }
         public bool Active { get; set; }
         public DateTime Closure { get; set; }
         [MaxLength(6)]
-        public string Status { get; set; }
+        public int Status { get; set; }
         #region Relation
-        [ForeignKey("ServiceId")]
+        [ForeignKey("Service_ID")]
         public virtual Services  Services { get; set; }
         [ForeignKey("PersonNationalId")]
         public virtual  Person  Person{ get; set; }

@@ -28,7 +28,7 @@ namespace NewCrm.API.Controllers
 
             Ticket ticket = new Ticket()
             {
-                ServiceId = model.ServiceId,
+                Service_ID = model.Service_ID,
                 Title = model.Title,
                 PersonNationalId = model.PersonNationalId,
                 DateOfCreation = DateTime.Now,
@@ -39,7 +39,7 @@ namespace NewCrm.API.Controllers
 
             TicketingChat  ticketingChat= new  TicketingChat()
             {
-                TicketID = await _ticketService.AddTicket(ticket),
+                Ticket_ID = await _ticketService.AddTicket(ticket),
                 Comment = model.Comment,
                 CommentTime = DateTime.Now,
                 PersonNationalId = model.PersonNationalId,

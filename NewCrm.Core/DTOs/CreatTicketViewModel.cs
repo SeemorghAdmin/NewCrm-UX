@@ -6,9 +6,9 @@ namespace NewCrm.Core.DTOs
 {
    public class CreatTicketViewModel
     {
-        public int ServiceId { get; set; }
+        public int Service_ID { get; set; }
         public string Title { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
         public string Comment { get; set; }
         public string PersonNationalId { get; set; }
 

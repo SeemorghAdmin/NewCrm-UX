@@ -11,13 +11,13 @@ namespace NewCrm.DataLayer.Entities.Ticketing
     {
         [Key]
         public int TicketingChatId { get; set; }
-        public int TicketID { get; set; }
+        public int Ticket_ID { get; set; }
         public string Comment { get; set; }
         public DateTime CommentTime { get; set; }
         public string PersonNationalId { get; set; }
         public bool Confidential { get; set; }
         #region Relation
-        [ForeignKey("TicketID")]
+        [ForeignKey("Ticket_ID")]
         public virtual Ticket Ticket { get; set; }
         [ForeignKey("PersonNationalId")]
         public virtual Person Person { get; set; }

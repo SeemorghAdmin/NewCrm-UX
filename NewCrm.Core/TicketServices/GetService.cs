@@ -20,7 +20,7 @@ namespace NewCrm.Core.TicketServices
         public IEnumerable<DataLayer.Entities.Ticketing.Services> GetServiceAsync(int id)
         {
             var service = from a in _context.Services
-                          where a.ServiceTypeId == id
+                          where a.ServiceType_ID == id
                           select a;
             var serviceList = service.ToList();
             return serviceList;

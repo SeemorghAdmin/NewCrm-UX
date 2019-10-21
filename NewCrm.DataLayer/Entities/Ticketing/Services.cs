@@ -9,7 +9,7 @@ namespace NewCrm.DataLayer.Entities.Ticketing
     {
         [Key]
         public int ServicesId { get; set; }
-        public int ServiceTypeId { get; set; }
+        public int ServiceType_ID { get; set; }
         [MaxLength(10)]
         public string Code { get; set; }
         [MaxLength(100)]

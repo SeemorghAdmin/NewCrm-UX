@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewCrm.DataLayer.Context;
 
 namespace NewCrm.DataLayer.Migrations
 {
     [DbContext(typeof(NewCrmContext))]
-    partial class NewCrmContextModelSnapshot : ModelSnapshot
+    [Migration("20191020130732_EditStatus")]
+    partial class EditStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,9 +64,7 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.Property<DateTime>("LastEditTime");
 
-                    b.Property<int?>("ServiceTypeId");
-
-                    b.Property<int>("ServiceType_ID");
+                    b.Property<int>("ServiceTypeId");
 
                     b.HasKey("ServicesId");
 
@@ -75,7 +75,7 @@ namespace NewCrm.DataLayer.Migrations
 
             modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.Ticket", b =>
                 {
-                    b.Property<int>("TicketId")
+                    b.Property<int>("TicketID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -87,18 +87,18 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.Property<string>("PersonNationalId");
 
-                    b.Property<int>("Service_ID");
+                    b.Property<int>("ServiceId");
 
                     b.Property<int>("Status")
                         .HasMaxLength(6);
 
                     b.Property<string>("Title");
 
-                    b.HasKey("TicketId");
+                    b.HasKey("TicketID");
 
                     b.HasIndex("PersonNationalId");
 
-                    b.HasIndex("Service_ID");
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Tickets");
                 });
@@ -117,13 +117,13 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.Property<string>("PersonNationalId");
 
-                    b.Property<int>("Ticket_ID");
+                    b.Property<int>("TicketID");
 
                     b.HasKey("TicketingChatId");
 
                     b.HasIndex("PersonNationalId");
 
-                    b.HasIndex("Ticket_ID");
+                    b.HasIndex("TicketID");
 
                     b.ToTable("TicketingChats");
                 });
@@ -205,8 +205,6 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.Property<string>("PersonNationalId");
 
-                    b.Property<string>("PersonNational_ID");
-
                     b.Property<int>("PositionId");
 
                     b.Property<string>("StaffNumber")
@@ -227,7 +225,8 @@ namespace NewCrm.DataLayer.Migrations
                 {
                     b.HasOne("NewCrm.DataLayer.Entities.Ticketing.ServiceType", "ServiceType")
                         .WithMany()
-                        .HasForeignKey("ServiceTypeId");
+                        .HasForeignKey("ServiceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NewCrm.DataLayer.Entities.Ticketing.Ticket", b =>
@@ -238,7 +237,7 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.HasOne("NewCrm.DataLayer.Entities.Ticketing.Services", "Services")
                         .WithMany()
-                        .HasForeignKey("Service_ID")
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -250,7 +249,7 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.HasOne("NewCrm.DataLayer.Entities.Ticketing.Ticket", "Ticket")
                         .WithMany()
-                        .HasForeignKey("Ticket_ID")
+                        .HasForeignKey("TicketID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
