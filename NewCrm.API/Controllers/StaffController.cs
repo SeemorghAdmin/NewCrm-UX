@@ -55,7 +55,7 @@ namespace NewCrm.API.Controllers
                 ShenasNum = model.ShenasNum,
                 ShenasSerial = model.ShenasSerial,
                 NationalCardSerial = model.NationalCardSerial,
-                BirthDate = new DateTime(model.BirthDate),
+                BirthDate = new DateTime(model.BirthDate, 1, 1),
                 CreateTime = DateTime.Now,
                 LastEditTime = DateTime.Now,
                 IsActive = false,
