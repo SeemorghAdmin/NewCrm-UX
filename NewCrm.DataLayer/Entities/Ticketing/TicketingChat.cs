@@ -10,7 +10,7 @@ namespace NewCrm.DataLayer.Entities.Ticketing
    public class TicketingChat
     {
         [Key]
-        public int TicketingChatId { get; set; }
+        public int TicketingChat_ID { get; set; }
         public int Ticket_ID { get; set; }
         public string Comment { get; set; }
         public DateTime CommentTime { get; set; }

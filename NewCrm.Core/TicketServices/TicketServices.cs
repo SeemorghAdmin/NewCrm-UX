@@ -24,7 +24,7 @@ namespace NewCrm.Core.TicketServices
 
             await _context.SaveChangesAsync();
 
-            return ticket.TicketId;
+            return ticket.Ticket_ID;
         }
 
         public async Task<bool> AddTicketingChat(TicketingChat ticket)

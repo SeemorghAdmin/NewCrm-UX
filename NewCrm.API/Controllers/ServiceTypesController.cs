@@ -49,7 +49,7 @@ namespace NewCrm.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutServiceType(int id, ServiceType serviceType)
         {
-            if (id != serviceType.ServiceTypeId)
+            if (id != serviceType.ServiceType_ID)
             {
                 return BadRequest();
             }
@@ -110,7 +110,7 @@ namespace NewCrm.API.Controllers
 
         private bool ServiceTypeExists(int id)
         {
-            return _context.ServiceTypes.Any(e => e.ServiceTypeId == id);
+            return _context.ServiceTypes.Any(e => e.ServiceType_ID == id);
         }
     }
 }

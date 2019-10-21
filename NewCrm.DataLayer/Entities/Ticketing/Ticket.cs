@@ -10,7 +10,7 @@ namespace NewCrm.DataLayer.Entities.Ticketing
    public class Ticket
     {
         [Key]
-        public int TicketId { get; set; }
+        public int Ticket_ID { get; set; }
         public int Service_ID { get; set; }
         public  string Title { get; set; }
         public string PersonNationalId { get; set; }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewCrm.DataLayer.Context;
 
 namespace NewCrm.DataLayer.Migrations
 {
     [DbContext(typeof(NewCrmContext))]
-    partial class NewCrmContextModelSnapshot : ModelSnapshot
+    [Migration("20191021061114_EditThree")]
+    partial class EditThree
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,7 +130,7 @@ namespace NewCrm.DataLayer.Migrations
 
             modelBuilder.Entity("NewCrm.DataLayer.Entities.User.Person", b =>
                 {
-                    b.Property<string>("PersonNational_ID")
+                    b.Property<string>("PersonNationalId")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(10);
 
@@ -182,14 +184,14 @@ namespace NewCrm.DataLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.HasKey("PersonNational_ID");
+                    b.HasKey("PersonNationalId");
 
                     b.ToTable("People");
                 });
 
             modelBuilder.Entity("NewCrm.DataLayer.Entities.User.Staff", b =>
                 {
-                    b.Property<int>("Staff_ID")
+                    b.Property<int>("StaffId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -214,7 +216,7 @@ namespace NewCrm.DataLayer.Migrations
                     b.Property<string>("TeleNumber")
                         .HasMaxLength(12);
 
-                    b.HasKey("Staff_ID");
+                    b.HasKey("StaffId");
 
                     b.HasIndex("PersonNationalId");
 
