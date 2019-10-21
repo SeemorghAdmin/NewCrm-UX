@@ -9,7 +9,7 @@ namespace NewCrm.DataLayer.Entities.User
     {
         [Key]
         [MaxLength(10)]
-        public string PersonNationalId { get; set; }
+        public string PersonNational_ID { get; set; }
 
         [MaxLength(50)]
         [Required]

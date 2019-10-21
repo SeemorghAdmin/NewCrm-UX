@@ -9,7 +9,7 @@ namespace NewCrm.DataLayer.Entities.User
     public class Staff
     {
         [Key]
-        public int StaffId { get; set; }
+        public int Staff_ID { get; set; }
 
         [Required]
         [MaxLength(50)]

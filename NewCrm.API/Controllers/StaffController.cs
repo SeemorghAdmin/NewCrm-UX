@@ -45,7 +45,7 @@ namespace NewCrm.API.Controllers
 
             Person person = new Person()
             {
-                PersonNationalId = model.PersonNationalId,
+                PersonNational_ID = model.PersonNationalId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = FixedText.FixedEmail(model.Email),

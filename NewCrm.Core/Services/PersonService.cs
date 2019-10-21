@@ -24,7 +24,7 @@ namespace NewCrm.Core.Services
 
             await _context.SaveChangesAsync();
 
-            return person.PersonNationalId;
+            return person.PersonNational_ID;
         }
 
         public async Task<bool> IsExistEmail(string email)
@@ -34,7 +34,7 @@ namespace NewCrm.Core.Services
 
         public async Task<bool> IsExistNationalId(string nationalId)
         {
-            return await _context.People.AnyAsync(a => a.PersonNationalId == nationalId);
+            return await _context.People.AnyAsync(a => a.PersonNational_ID == nationalId);
         }
 
         public async Task<bool> IsExistUserName(string userName)
