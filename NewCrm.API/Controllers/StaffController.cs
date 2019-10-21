@@ -67,7 +67,7 @@ namespace NewCrm.API.Controllers
                 Address = model.Address,
                 EduDegree = model.EduDegree,
                 EduField = model.EduField,
-                PersonNationalId = await _personService.AddPerson(person),
+                PersonNational_ID = await _personService.AddPerson(person),
                 PositionId = model.PositionId,
                 StaffNumber = model.StaffNumber,
                 TeleNumber = model.TeleNumber

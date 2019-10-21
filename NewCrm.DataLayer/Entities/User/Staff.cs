@@ -29,7 +29,7 @@ namespace NewCrm.DataLayer.Entities.User
         [MaxLength(50)]
         public string EduField { get; set; }
 
-        public string PersonNationalId { get; set; }
+        public string PersonNational_ID { get; set; }
 
         #region Relations
         [ForeignKey("PersonNationalId")]
