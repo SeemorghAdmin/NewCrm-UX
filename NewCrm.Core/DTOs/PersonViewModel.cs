@@ -45,5 +45,10 @@ namespace NewCrm.Core.DTOs
         public string ShenasSerial { get; set; }
     }
 
+    public class LoginViewModel
+    {
+        public string UserName { get; set; }
 
+        public string Password { get; set; }
+    }
 }

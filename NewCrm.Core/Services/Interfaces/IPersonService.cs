@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using NewCrm.DataLayer.Entities.User;
+using NewCrm.Core.DTOs;
 
 namespace NewCrm.Core.Services.Interfaces
 {
@@ -15,5 +16,9 @@ namespace NewCrm.Core.Services.Interfaces
         Task<bool> IsExistNationalId(string nationalId);
 
         Task<bool> IsExistEmail(string email);
+
+        Task<Person> Login(LoginViewModel loginViewModel);
+
+        Task<IEnumerable<Person>> People();
     }
 }
