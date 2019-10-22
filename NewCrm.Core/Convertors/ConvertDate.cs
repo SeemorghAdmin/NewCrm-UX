@@ -9,8 +9,8 @@ namespace NewCrm.Core.Convertors
         {
             PersianCalendar pc = new PersianCalendar();
 
-            string da = $"Persian Calendar:    { pc.GetDayOfWeek(dateTime)}, { pc.GetMonth(dateTime)}/{pc.GetDayOfMonth(dateTime)}" +
-                $"/{ pc.GetYear(dateTime)} {pc.GetHour(dateTime)}:{ pc.GetMinute(dateTime) }:{pc.GetSecond(dateTime)}";
+            string da = $"{pc.GetYear(dateTime)  }/{pc.GetMonth(dateTime)}" +
+                $"/{ pc.GetDayOfMonth(dateTime)} {pc.GetHour(dateTime)}:{ pc.GetMinute(dateTime) }";
                        
             return da;
         }

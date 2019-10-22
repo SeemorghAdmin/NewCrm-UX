@@ -13,7 +13,7 @@ namespace NewCrm.DataLayer.Entities.Ticketing
         public int TicketingChat_ID { get; set; }
         public int Ticket_ID { get; set; }
         public string Comment { get; set; }
-        public DateTime CommentTime { get; set; }
+        public string CommentTime { get; set; }
         public string PersonNational_ID { get; set; }
         public bool Confidential { get; set; }
         #region Relation

@@ -31,9 +31,9 @@ namespace NewCrm.API.Controllers
                 Service_ID = model.Services_ID,
                 Title = model.Title,
                 PersonNational_ID = model.PersonNational_ID,
-                DateOfCreation = DateTime.Now,
+                DateOfCreation = DateTime.Now.ToString(),
                 Active = true,
-                Closure = DateTime.Now,
+                Closure = DateTime.Now.ToString(),
                 Status = model.Status,
             };
 
@@ -41,7 +41,7 @@ namespace NewCrm.API.Controllers
             {
                 Ticket_ID = await _ticketService.AddTicket(ticket),
                 Comment = model.Comment,
-                CommentTime = DateTime.Now,
+                CommentTime = DateTime.Now.ToString(),
                 PersonNational_ID = model.PersonNational_ID,
                 Confidential = false,
              
@@ -53,6 +53,12 @@ namespace NewCrm.API.Controllers
         public IEnumerable<DataLayer.Entities.Ticketing.Services> GetServiceType(int id)
         {
             return _getService.GetServiceAsync(id);
+        }
+       [HttpPut("{id}")]      
+        public async Task<bool> PutDiactiveTicket(int id)
+        {
+            return await _ticketService.PutDiactiveTcket(id);
+
         }
     }
 }

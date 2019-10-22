@@ -14,9 +14,9 @@ namespace NewCrm.DataLayer.Entities.Ticketing
         public int Service_ID { get; set; }
         public  string Title { get; set; }
         public string PersonNational_ID { get; set; }
-        public DateTime DateOfCreation { get; set; }
+        public string DateOfCreation { get; set; }
         public bool Active { get; set; }
-        public DateTime Closure { get; set; }
+        public string Closure { get; set; }
         [MaxLength(6)]
         public int Status { get; set; }
         #region Relation

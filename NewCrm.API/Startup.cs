@@ -51,6 +51,7 @@ namespace NewCrm.API
             services.AddTransient<IserviceType, ServiceTypeService>();
             services.AddTransient<ITicketService, TicketServices>();
             services.AddTransient<IgetService, GetService>();
+            services.AddTransient<ITicketChat, TicketChatService>();
             #endregion
         }
 

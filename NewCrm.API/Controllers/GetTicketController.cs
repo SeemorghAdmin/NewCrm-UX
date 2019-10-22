@@ -23,5 +23,19 @@ namespace NewCrm.API.Controllers
         {
             return await _ticketService.GetTicket();
         }
+
+
+        [HttpGet]
+        [Route("DiactiveTicket")]
+        public async Task<IEnumerable<DataLayer.Entities.Ticketing.Ticket>> GetDiactiveTicket()
+        {
+            return await _ticketService.GetDiactiveTicket();
+        }
+        [HttpGet]
+        [Route("AllTickets")]
+        public async Task<IEnumerable<DataLayer.Entities.Ticketing.Ticket>> GetAllTickets()
+        {
+            return await _ticketService.GetAllTickets();
+        }
     }
 }

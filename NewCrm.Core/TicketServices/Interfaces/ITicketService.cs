@@ -12,5 +12,8 @@ namespace NewCrm.Core.TicketServices.Interfaces
         Task<bool> AddTicketingChat(TicketingChat ticket);
       //  IEnumerable<DataLayer.Entities.Ticketing.Ticket> GetTicket();
         Task<IEnumerable<Ticket>> GetTicket();
+        Task<IEnumerable<Ticket>> GetDiactiveTicket();
+        Task<bool> PutDiactiveTcket(int id);
+        Task<IEnumerable<Ticket>> GetAllTickets();
     }
 }
