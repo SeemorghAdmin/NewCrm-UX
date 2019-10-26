@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewCrm.Core.DTOs;
@@ -32,10 +33,20 @@ namespace NewCrm.API.Controllers
                     return BadRequest("حساب کاربری شما غیر فعال میباشد");
                 }
 
-                return Ok(user.Role1);
+                return Ok(new { user, StatusCode = 200});
             }
 
             return BadRequest("کاربری با این مشخصات یافت نشد");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAll()
+        {
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+
+            
+            return Ok(userId);
         }
     }
 }

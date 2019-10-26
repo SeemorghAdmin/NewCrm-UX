@@ -61,9 +61,11 @@ namespace NewCrm.DataLayer.Entities.User
 
         public DateTime LastEditTime { get; set; }
 
+        public string Token { get; set; }
+
 
         #region Relations
-        
+
         #endregion
     }
 }
