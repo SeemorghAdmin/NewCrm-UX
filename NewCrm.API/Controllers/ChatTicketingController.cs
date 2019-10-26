@@ -29,12 +29,13 @@ namespace NewCrm.API.Controllers
         [HttpPost]
         public async Task<ActionResult<bool>> PostAddTicketingChat(ChatTicketingViewModel model)
         {
+
             TicketingChat ticketingChat = new TicketingChat()
             {
                 Ticket_ID = model.Ticket_ID,
                 Comment = model.Comment,
                 CommentTime = DateTime.Now.ToString(),
-                PersonNational_ID = "4180109123",
+                PersonNational_ID = "16145828",
                 Confidential = false
             };
             return await _ticketChat.AddComment(ticketingChat);

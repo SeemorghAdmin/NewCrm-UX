@@ -35,7 +35,7 @@ namespace NewCrm.Core.TicketServices
         public async Task<IEnumerable<TicketingChat>> GetTicketingChat(int id)
         {
             var ticket = await(from a in _context.TicketingChats.Include(a => a.Ticket)
-                           .Include(a => a.Person)
+                                 .Include(a => a.Person)
                                where a.Ticket_ID ==id
                                 select new TicketingChat
                                 {

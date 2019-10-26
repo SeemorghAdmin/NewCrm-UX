@@ -8,5 +8,7 @@ namespace NewCrm.Core.DTOs
     {
         public int Ticket_ID { get; set; }
         public string Comment { get; set; }
+        public string Sender { get; set; }  
+        public string Resiver { get; set; }
     }
 }

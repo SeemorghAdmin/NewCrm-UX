@@ -36,15 +36,16 @@ namespace NewCrm.API.Controllers
                 Closure = DateTime.Now.ToString(),
                 Status = model.Status,
             };
-
-            TicketingChat  ticketingChat= new  TicketingChat()
+            TicketingChat ticketingChat = new TicketingChat()
             {
                 Ticket_ID = await _ticketService.AddTicket(ticket),
                 Comment = model.Comment,
                 CommentTime = DateTime.Now.ToString(),
                 PersonNational_ID = model.PersonNational_ID,
                 Confidential = false,
-             
+                Resiver = "4180109123",
+                Sender = model.PersonNational_ID,
+
             };
             return await _ticketService.AddTicketingChat(ticketingChat);
         }

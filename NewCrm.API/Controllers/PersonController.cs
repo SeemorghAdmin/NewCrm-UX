@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewCrm.Core.DTOs;
 using NewCrm.Core.Services.Interfaces;
+using NewCrm.DataLayer.Entities.User;
 
 namespace NewCrm.API.Controllers
 {
@@ -48,5 +49,11 @@ namespace NewCrm.API.Controllers
             
             return Ok(userId);
         }
+        [HttpGet]
+        public async Task<IEnumerable<Person>> People()
+        {
+            return await _service.People();
+        }
+
     }
 }
