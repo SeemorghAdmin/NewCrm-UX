@@ -62,6 +62,12 @@ namespace NewCrm.API.Controllers
                 Password = PasswordHasher.ComputeSha256Hash($"{model.UserName}seemsys{model.Password}")
             };
 
+            if (model.IsAdmin == true)
+            {
+                person.Role1 = 2;
+                person.Role2 = 1;
+            }
+
             Staff staff = new Staff()
             {
                 Address = model.Address,
@@ -72,6 +78,7 @@ namespace NewCrm.API.Controllers
                 StaffNumber = model.StaffNumber,
                 TeleNumber = model.TeleNumber
             };
+
 
             return await _staffService.AddStaff(staff);
         }
