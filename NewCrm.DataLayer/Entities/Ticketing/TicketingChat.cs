@@ -16,7 +16,13 @@ namespace NewCrm.DataLayer.Entities.Ticketing
         public string CommentTime { get; set; }
         public string PersonNational_ID { get; set; }
         public bool Confidential { get; set; }
+        public string Resiver { get; set; }
+        public string Sender { get; set; }
         #region Relation
+        [ForeignKey("Resiver")]
+        public virtual Person ResiverInformation { get; set; }
+        [ForeignKey("Sender")]
+        public virtual Person SenderInformation { get; set; }
         [ForeignKey("Ticket_ID")]
         public virtual Ticket Ticket { get; set; }
         [ForeignKey("PersonNational_ID")]
