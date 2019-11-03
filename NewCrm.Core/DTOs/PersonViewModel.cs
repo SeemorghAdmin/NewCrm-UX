@@ -43,6 +43,8 @@ namespace NewCrm.Core.DTOs
         public string ShenasNum { get; set; }
 
         public string ShenasSerial { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 
     public class LoginViewModel
