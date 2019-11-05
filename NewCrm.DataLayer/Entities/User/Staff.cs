@@ -32,7 +32,7 @@ namespace NewCrm.DataLayer.Entities.User
         public string PersonNational_ID { get; set; }
 
         #region Relations
-        [ForeignKey("PersonNationalId")]
+        [ForeignKey("PersonNational_ID")]
         public virtual Person Person { get; set; }
         #endregion
       

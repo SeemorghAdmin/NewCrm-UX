@@ -86,5 +86,12 @@ namespace NewCrm.Core.Services
         {
             return await _context.People.ToListAsync();
         }
+
+        public async Task<bool> ChangePassword(string personNationalId, string oldPassword, string newPassword)
+        {
+            var user = await _context.People.FindAsync(personNationalId);
+
+            return true;
+        }
     }
 }
