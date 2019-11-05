@@ -29,10 +29,10 @@ namespace NewCrm.Core.TicketServices
        
         public async Task<IEnumerable<TicketingChat>> GetTicketingChat(int id,string userId)
         {
-            var user = _context.People.Find(userId);
+            var user = await _context.People.SingleOrDefaultAsync(r => r.PersonNational_ID == userId);
             if (user.Role1 == 3)
             {
-                var ticket = await (from a in _context.TicketingChats.Include(a => a.Ticket)
+                var ticket = (from a in _context.TicketingChats.Include(a => a.Ticket)
                                     .Include(a => a.Person)
                                     where a.Ticket_ID == id && a.Confidential == false
                                     select new TicketingChat
@@ -45,7 +45,7 @@ namespace NewCrm.Core.TicketServices
                                         Confidential = a.Confidential,
                                         Ticket = a.Ticket,
                                         Person = a.Person
-                                    }).ToListAsync();
+                                    }).ToList();
                 return ticket;
             }
             else
