@@ -62,7 +62,7 @@ namespace NewCrm.API.Controllers
                 return Ok(true);
             }
 
-            return BadRequest("خطای در انجام عملیات رخ داده است");
+            return BadRequest("خطای در انجام عملیات رخ داده است.");
         }
         
         [HttpGet]
