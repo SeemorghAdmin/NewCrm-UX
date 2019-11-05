@@ -53,4 +53,11 @@ namespace NewCrm.Core.DTOs
 
         public string Password { get; set; }
     }
+
+    public class ChangePassword
+    {
+        public string OldPassword { get; set; }
+
+        public string NewPassword { get; set; }
+    }
 }

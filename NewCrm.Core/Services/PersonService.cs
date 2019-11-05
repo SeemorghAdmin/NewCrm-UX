@@ -20,7 +20,7 @@ namespace NewCrm.Core.Services
 {
     public class PersonService : IPersonService
     {
-        private NewCrmContext _context;
+        private readonly NewCrmContext _context;
         private readonly AppSettings _appSettings;
 
         public PersonService(NewCrmContext context, IOptions<AppSettings> appSettings)
@@ -87,11 +87,20 @@ namespace NewCrm.Core.Services
             return await _context.People.ToListAsync();
         }
 
-        public async Task<bool> ChangePassword(string personNationalId, string oldPassword, string newPassword)
+        public async Task<bool> ChangePassword(string personNationalId, ChangePassword changePassword)
         {
             var user = await _context.People.FindAsync(personNationalId);
+            changePassword.OldPassword = PasswordHasher.ComputeSha256Hash($"{user.UserName}seemsys{changePassword.OldPassword}");
 
-            return true;
+            if (user.Password == changePassword.OldPassword)
+            {
+                user.Password = PasswordHasher.ComputeSha256Hash($"{user.UserName}seemsys{changePassword.NewPassword}");
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
     }
 }

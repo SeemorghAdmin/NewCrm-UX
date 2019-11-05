@@ -19,6 +19,7 @@ namespace NewCrm.API
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://localhost:58989/")
                 .UseStartup<Startup>();
     }
 }

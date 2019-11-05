@@ -15,13 +15,14 @@ namespace NewCrm.API.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private IPersonService _service;
+        private readonly IPersonService _service;
 
         public PersonController(IPersonService service)
         {
             _service = service;
         }
 
+        // method login
         [HttpPost]
         public async Task<ActionResult<object>> Login(LoginViewModel login)
         {
@@ -49,6 +50,21 @@ namespace NewCrm.API.Controllers
             
             return Ok(userId);
         }
+
+        [HttpPost]
+        [Route("changepassword")]
+        public async Task<ActionResult<bool>> ChangePassword(ChangePassword changePassword)
+        {
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+
+            if (await _service.ChangePassword(userId, changePassword))
+            {
+                return Ok(true);
+            }
+
+            return BadRequest("خطای در انجام عملیات رخ داده است.");
+        }
+        
         [HttpGet]
         public async Task<IEnumerable<Person>> People()
         {
