@@ -66,6 +66,7 @@ namespace NewCrm.API.Controllers
         }
         
         [HttpGet]
+        [Route("getPersonAll")]
         public async Task<IEnumerable<Person>> People()
         {
             return await _service.People();

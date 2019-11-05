@@ -16,7 +16,9 @@ namespace NewCrm.DataLayer.Entities.Ticketing
         public string PersonNational_ID { get; set; }
         public string DateOfCreation { get; set; }
         public bool Active { get; set; }
+        public string Resiver { get; set; }
         public string Closure { get; set; }
+        public int UnseenNumber { get; set; }
         [MaxLength(6)]
         public int Status { get; set; }
         #region Relation

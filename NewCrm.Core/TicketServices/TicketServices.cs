@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using NewCrm.Core.Convertors;
+using NewCrm.Core.DTOs;
+using NewCrm.DataLayer.Entities.User;
 
 namespace NewCrm.Core.TicketServices
 {
@@ -39,30 +41,33 @@ namespace NewCrm.Core.TicketServices
             return true;
         }
 
-        public async Task<IEnumerable<Ticket>> GetAllTickets()
+        public async Task<IEnumerable<Ticket>> GetAllTickets(string id)
         {
-            var tickets = await(from a in _context.Tickets.Include(a => a.Services)
-                            .Include(a => a.Person)
-                               select new Ticket
-                               {
-                                   Ticket_ID = a.Ticket_ID,
-                                   Service_ID = a.Service_ID,
-                                   Title = a.Title,
-                                   PersonNational_ID = a.PersonNational_ID,
-                                   DateOfCreation = ConvertDate.ConvertSha(Convert.ToDateTime(a.DateOfCreation)),
-                                   Active = a.Active,
-                                   Status = a.Status,
-                                   Services = a.Services,
-                                   Person = a.Person
-                               }).ToListAsync();
+            var tickets = await (from a in _context.Tickets.Include(a => a.Services)
+                             .Include(a => a.Person)
+                                 where a.Resiver == id
+                                 select new Ticket
+                                 {
+                                     Ticket_ID = a.Ticket_ID,
+                                     Service_ID = a.Service_ID,
+                                     Title = a.Title,
+                                     PersonNational_ID = a.PersonNational_ID,
+                                     DateOfCreation = ConvertDate.ConvertSha(Convert.ToDateTime(a.DateOfCreation)),
+                                     Active = a.Active,
+                                     Status = a.Status,
+                                     Services = a.Services,
+                                     Person = a.Person,
+                                     UnseenNumber = _context.TicketingChats.Where(s => s.Ticket_ID == a.Ticket_ID && s.Seen == false).Count()
+                                }).ToListAsync();
+
             return tickets;
         }
 
-        public async Task<IEnumerable<Ticket>> GetDiactiveTicket()
+        public async Task<IEnumerable<Ticket>> GetDiactiveTicket(string id)
         {
             var ticket = await (from a in _context.Tickets.Include(a => a.Services)
                               .Include(a => a.Person)
-                                where a.Active == false
+                                where a.Active == false && a.PersonNational_ID == id
                                select new Ticket
                                {
                                    Ticket_ID = a.Ticket_ID,
@@ -78,27 +83,48 @@ namespace NewCrm.Core.TicketServices
             return ticket;
         }
 
-        public async Task<IEnumerable<Ticket>> GetTicket()
+        public async Task<IEnumerable<Ticket>> GetOwnerTicket(string id)
         {
             var ticket = await (from a in _context.Tickets.Include(a => a.Services)
-                              .Include(a => a.Person)
-                                where a.Active == true
+                             .Include(a => a.Person)
+                                where a.Active == false && a.Resiver == id
                                 select new Ticket
-                              {
-                                 Ticket_ID=a.Ticket_ID,
-                                  Service_ID=a.Service_ID,
-                                  Title=a.Title,
-                                  PersonNational_ID=a.PersonNational_ID,
-                                  DateOfCreation= ConvertDate.ConvertSha(Convert.ToDateTime(a.DateOfCreation)),
-                                  Active=a.Active,
-                                  Status=a.Status,
-                                  Services=a.Services,
-                                  Person=a.Person
-                              }).ToListAsync();
-
-
+                                {
+                                    Ticket_ID = a.Ticket_ID,
+                                    Service_ID = a.Service_ID,
+                                    Title = a.Title,
+                                    PersonNational_ID = a.PersonNational_ID,
+                                    DateOfCreation = ConvertDate.ConvertSha(Convert.ToDateTime(a.DateOfCreation)),
+                                    Active = a.Active,
+                                    Status = a.Status,
+                                    Services = a.Services,
+                                    Person = a.Person
+                                }).ToListAsync();
             return ticket;
         }
+
+        public async Task<IEnumerable<Ticket>> GetTicket(string id)
+        {
+           
+            var ticket = await (from a in _context.Tickets.Include(a => a.Services)
+                              .Include(a => a.Person)
+                                where a.Active == true && a.PersonNational_ID == id
+                                select new Ticket
+                                {
+                                    Ticket_ID = a.Ticket_ID,
+                                    Service_ID = a.Service_ID,
+                                    Title = a.Title,
+                                    PersonNational_ID = a.PersonNational_ID,
+                                    DateOfCreation = ConvertDate.ConvertSha(Convert.ToDateTime(a.DateOfCreation)),
+                                    Active = a.Active,
+                                    Status = a.Status,
+                                    Services = a.Services,
+                                    Person = a.Person
+                                }).OrderByDescending(o => o.Ticket_ID).ToListAsync(); 
+            return ticket;
+        }
+
+       
 
         public async Task<bool> PutDiactiveTcket(int id)
         {
@@ -112,6 +138,24 @@ namespace NewCrm.Core.TicketServices
             }
             else
                 a.Active = true;
+            _context.Entry(a).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> PutResiver(int id, ChatTicketingViewModel user)
+        {
+            Ticket a = await _context.Tickets.FindAsync(id);
+            Person s = await _context.People.FindAsync(user.Resiver);
+            if(s.Role1==3)
+            {
+                return true;
+            }
+            else
+            {
+                a.Resiver = user.Resiver;
+            }
+
             _context.Entry(a).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return true;

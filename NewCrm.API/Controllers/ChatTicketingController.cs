@@ -23,22 +23,48 @@ namespace NewCrm.API.Controllers
         [HttpGet("{id}")]
         public async Task<IEnumerable<DataLayer.Entities.Ticketing.TicketingChat>> GetTicketChat(int id)
         {
-            return await _ticketChat.GetTicketingChat(id);
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            return await _ticketChat.GetTicketingChat(id,userId);
         }
 
         [HttpPost]
         public async Task<ActionResult<bool>> PostAddTicketingChat(ChatTicketingViewModel model)
         {
-
+            bool t;
+            string u;
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            if(model.Resiver == null)
+            {
+                u = "4180109123";
+            }
+            else
+            {
+                u = model.Resiver;
+            }
+            if(model.Conf == 1)
+            {
+                t = true;
+            }
+            else
+            {
+                t = false;
+            }
             TicketingChat ticketingChat = new TicketingChat()
             {
                 Ticket_ID = model.Ticket_ID,
                 Comment = model.Comment,
                 CommentTime = DateTime.Now.ToString(),
-                PersonNational_ID = "16145828",
-                Confidential = false
+                PersonNational_ID = userId,
+                Sender = userId,
+                Resiver = u,
+                Confidential = t
             };
             return await _ticketChat.AddComment(ticketingChat);
+        }
+        [HttpPut("{id}")]
+        public async Task<bool> PutSeen(int id)
+        {
+            return await _ticketChat.PutSeen(id);
         }
     }
 }

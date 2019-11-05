@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewCrm.DataLayer.Context;
 
 namespace NewCrm.DataLayer.Migrations
 {
     [DbContext(typeof(NewCrmContext))]
-    partial class NewCrmContextModelSnapshot : ModelSnapshot
+    [Migration("20191028120823_AddSeen")]
+    partial class AddSeen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,16 +87,12 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.Property<string>("PersonNational_ID");
 
-                    b.Property<string>("Resiver");
-
                     b.Property<int>("Service_ID");
 
                     b.Property<int>("Status")
                         .HasMaxLength(6);
 
                     b.Property<string>("Title");
-
-                    b.Property<int>("UnseenNumber");
 
                     b.HasKey("Ticket_ID");
 
@@ -138,29 +136,6 @@ namespace NewCrm.DataLayer.Migrations
                     b.HasIndex("Ticket_ID");
 
                     b.ToTable("TicketingChats");
-                });
-
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.User.Developer", b =>
-                {
-                    b.Property<int>("Developer_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreateTime");
-
-                    b.Property<DateTime>("LastEditTime");
-
-                    b.Property<string>("MobileNumber")
-                        .HasMaxLength(12);
-
-                    b.Property<string>("PersonNational_ID")
-                        .HasMaxLength(10);
-
-                    b.HasKey("Developer_ID");
-
-                    b.HasIndex("PersonNational_ID");
-
-                    b.ToTable("Developers");
                 });
 
             modelBuilder.Entity("NewCrm.DataLayer.Entities.User.Person", b =>
@@ -240,6 +215,8 @@ namespace NewCrm.DataLayer.Migrations
                     b.Property<string>("EduField")
                         .HasMaxLength(50);
 
+                    b.Property<string>("PersonNationalId");
+
                     b.Property<string>("PersonNational_ID");
 
                     b.Property<int>("PositionId");
@@ -253,7 +230,7 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.HasKey("Staff_ID");
 
-                    b.HasIndex("PersonNational_ID");
+                    b.HasIndex("PersonNationalId");
 
                     b.ToTable("Staffs");
                 });
@@ -298,18 +275,11 @@ namespace NewCrm.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.User.Developer", b =>
-                {
-                    b.HasOne("NewCrm.DataLayer.Entities.User.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonNational_ID");
-                });
-
             modelBuilder.Entity("NewCrm.DataLayer.Entities.User.Staff", b =>
                 {
                     b.HasOne("NewCrm.DataLayer.Entities.User.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonNational_ID");
+                        .HasForeignKey("PersonNationalId");
                 });
 #pragma warning restore 612, 618
         }
