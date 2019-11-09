@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewCrm.Core.DTOs;
@@ -19,7 +20,7 @@ namespace NewCrm.API.Controllers
         {
             _ticketChat = ticketService;
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IEnumerable<DataLayer.Entities.Ticketing.TicketingChat>> GetTicketChat(int id)
         {
@@ -33,7 +34,7 @@ namespace NewCrm.API.Controllers
             bool t;
             string u;
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
-            if(model.Resiver == null)
+            if(model.Resiver == "" || model.Resiver == null)
             {
                 u = "4180109123";
             }
