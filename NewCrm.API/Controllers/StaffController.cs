@@ -59,7 +59,7 @@ namespace NewCrm.API.Controllers
                 CreateTime = DateTime.Now,
                 LastEditTime = DateTime.Now,
                 IsActive = false,
-                Password = PasswordHasher.ComputeSha256Hash($"{model.UserName}seemsys{model.Password}")
+                Password = PasswordHasher.ComputeSha256Hash($"{model.UserName}seemsys123456")
             };
 
             if (model.IsAdmin == true)
