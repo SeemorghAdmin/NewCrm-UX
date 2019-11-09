@@ -43,6 +43,7 @@ namespace NewCrm.API.Controllers
 
         [HttpGet]
         [Authorize]
+        [Route("userprofile")]
         public IActionResult GetAll()
         {
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
