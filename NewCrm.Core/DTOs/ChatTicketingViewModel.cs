@@ -10,5 +10,6 @@ namespace NewCrm.Core.DTOs
         public string Comment { get; set; }
         public string Sender { get; set; }  
         public string Resiver { get; set; }
+        public int Conf { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewCrm.Core.DTOs;
+using NewCrm.Core.Services.Interfaces;
 using NewCrm.Core.TicketServices.Interfaces;
 using NewCrm.DataLayer.Entities.Ticketing;
 
@@ -14,37 +15,41 @@ namespace NewCrm.API.Controllers
     [ApiController]
     public class CreatTicetController : ControllerBase
     {
+        private IPersonService _service;
         private ITicketService  _ticketService;
         private IgetService _getService;
-        public CreatTicetController(ITicketService ticketService,IgetService igetService)
+        public CreatTicetController(ITicketService ticketService,IgetService igetService, IPersonService service)
         {
             _ticketService = ticketService;
             _getService = igetService;
+            _service = service;
         }
         [HttpPost]
         public async Task<ActionResult<bool>> PostAddTicketingChat(CreatTicketViewModel model)
         {
 
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
 
             Ticket ticket = new Ticket()
             {
                 Service_ID = model.Services_ID,
                 Title = model.Title,
-                PersonNational_ID = model.PersonNational_ID,
+                PersonNational_ID = userId,
                 DateOfCreation = DateTime.Now.ToString(),
                 Active = true,
                 Closure = DateTime.Now.ToString(),
                 Status = model.Status,
+                Resiver = "4180109123"
             };
             TicketingChat ticketingChat = new TicketingChat()
             {
                 Ticket_ID = await _ticketService.AddTicket(ticket),
                 Comment = model.Comment,
                 CommentTime = DateTime.Now.ToString(),
-                PersonNational_ID = model.PersonNational_ID,
+                PersonNational_ID = userId,
                 Confidential = false,
                 Resiver = "4180109123",
-                Sender = model.PersonNational_ID,
+                Sender = userId,
 
             };
             return await _ticketService.AddTicketingChat(ticketingChat);

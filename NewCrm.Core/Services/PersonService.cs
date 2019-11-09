@@ -13,8 +13,8 @@ using NewCrm.Core.Convertors;
 using NewCrm.Core.Generators;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace NewCrm.Core.Services
 {
@@ -78,13 +78,17 @@ namespace NewCrm.Core.Services
                 // remove password before returning
                 user.Password = null;
             }
-            
+
             return user;
         }
 
         public async Task<IEnumerable<Person>> People()
         {
-            return await _context.People.ToListAsync();
+            var person = await (from a in _context.People
+                                where( (a.Role1 == 2 && a.Role2 == 2 ) || (a.Role1 ==2 && a.Role2==1))
+                              
+                                select a).ToListAsync();
+            return person;
         }
 
         public async Task<bool> ChangePassword(string personNationalId, ChangePassword changePassword)

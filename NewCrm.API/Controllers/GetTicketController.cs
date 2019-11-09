@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NewCrm.Core.DTOs;
 using NewCrm.Core.TicketServices.Interfaces;
 
 namespace NewCrm.API.Controllers
@@ -21,7 +22,8 @@ namespace NewCrm.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<DataLayer.Entities.Ticketing.Ticket>> GetServiceType()
         {
-            return await _ticketService.GetTicket();
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            return await _ticketService.GetTicket(userId);
         }
 
 
@@ -29,13 +31,28 @@ namespace NewCrm.API.Controllers
         [Route("DiactiveTicket")]
         public async Task<IEnumerable<DataLayer.Entities.Ticketing.Ticket>> GetDiactiveTicket()
         {
-            return await _ticketService.GetDiactiveTicket();
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            return await _ticketService.GetDiactiveTicket(userId);
         }
         [HttpGet]
         [Route("AllTickets")]
         public async Task<IEnumerable<DataLayer.Entities.Ticketing.Ticket>> GetAllTickets()
         {
-            return await _ticketService.GetAllTickets();
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            return await _ticketService.GetAllTickets(userId);
+        }
+
+        [HttpGet]
+        [Route("GetOwner")]
+        public async Task<IEnumerable<DataLayer.Entities.Ticketing.Ticket>> GetOwnerTicket()
+        {
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            return await _ticketService.GetOwnerTicket(userId);
+        }
+        [HttpPut("{id}")]
+        public async Task<bool> PutResiverIcket(int id ,ChatTicketingViewModel user)
+        {          
+            return await _ticketService.PutResiver(id,user);
         }
     }
 }

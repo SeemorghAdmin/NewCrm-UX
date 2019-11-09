@@ -18,6 +18,7 @@ namespace NewCrm.DataLayer.Entities.Ticketing
         public bool Confidential { get; set; }
         public string Resiver { get; set; }
         public string Sender { get; set; }
+        public bool Seen { get; set; }
         #region Relation
         [ForeignKey("Resiver")]
         public virtual Person ResiverInformation { get; set; }
