@@ -54,7 +54,7 @@ namespace NewCrm.API.Controllers
                 CommentTime = DateTime.Now.ToString(),
                 PersonNational_ID = userId,
                 Confidential = false,
-                Resiver = "4180109123",
+                Resiver = s.PersonNational_ID,
                 Sender = userId,
 
             };
