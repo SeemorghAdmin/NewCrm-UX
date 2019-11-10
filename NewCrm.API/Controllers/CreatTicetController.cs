@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NewCrm.Core.DTOs;
 using NewCrm.Core.Services.Interfaces;
 using NewCrm.Core.TicketServices.Interfaces;
+using NewCrm.DataLayer.Context;
 using NewCrm.DataLayer.Entities.Ticketing;
+using NewCrm.DataLayer.Entities.User;
 
 namespace NewCrm.API.Controllers
 {
@@ -15,21 +18,24 @@ namespace NewCrm.API.Controllers
     [ApiController]
     public class CreatTicetController : ControllerBase
     {
+        private NewCrmContext _context;
+
         private IPersonService _service;
         private ITicketService  _ticketService;
         private IgetService _getService;
-        public CreatTicetController(ITicketService ticketService,IgetService igetService, IPersonService service)
+        public CreatTicetController(ITicketService ticketService,IgetService igetService, IPersonService service , NewCrmContext context)
         {
             _ticketService = ticketService;
             _getService = igetService;
             _service = service;
+            _context = context;
         }
         [HttpPost]
         public async Task<ActionResult<bool>> PostAddTicketingChat(CreatTicketViewModel model)
         {
 
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
-
+            Person s = await _context.People.SingleOrDefaultAsync(y => y.Role1 == 2 && y.Role2 == 1);
             Ticket ticket = new Ticket()
             {
                 Service_ID = model.Services_ID,
@@ -39,7 +45,7 @@ namespace NewCrm.API.Controllers
                 Active = true,
                 Closure = DateTime.Now.ToString(),
                 Status = model.Status,
-                Resiver = "4180109123"
+                Resiver = s.PersonNational_ID
             };
             TicketingChat ticketingChat = new TicketingChat()
             {
