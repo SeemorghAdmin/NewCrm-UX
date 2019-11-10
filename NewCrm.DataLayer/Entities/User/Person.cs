@@ -57,11 +57,13 @@ namespace NewCrm.DataLayer.Entities.User
 
         public bool IsActive { get; set; }
 
-        public DateTime CreateTime { get; set; }
+        public DateTime CreateTime { get ; set; }
 
-        public DateTime LastEditTime { get; set; }
+        public DateTime LastEditTime { get ; set; }
 
-        public string Token { get; set; }
+        public string Token { get ; set; }
+
+        public bool NeedChangePassword { get; set; }
 
 
         #region Relations
