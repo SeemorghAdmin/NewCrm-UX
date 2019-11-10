@@ -58,7 +58,7 @@ namespace NewCrm.Core.TicketServices
                                      Services = a.Services,
                                      Person = a.Person,
                                      UnseenNumber = _context.TicketingChats.Where(s => s.Ticket_ID == a.Ticket_ID && s.Seen == false).Count()
-                                }).ToListAsync();
+                                }).OrderByDescending(o => o.DateOfCreation).ToListAsync();
 
             return tickets;
         }
