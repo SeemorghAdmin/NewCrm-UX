@@ -59,7 +59,7 @@ namespace NewCrm.API.Controllers
                 BirthDate = new DateTime(model.BirthDate, 1, 1),
                 CreateTime = DateTime.Now,
                 LastEditTime = DateTime.Now,
-                IsActive = false,
+                IsActive = true,
                 Password = PasswordHasher.ComputeSha256Hash($"{model.UserName}seemsys{model.Password}")
             };
 
