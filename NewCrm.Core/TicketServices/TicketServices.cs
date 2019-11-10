@@ -58,7 +58,7 @@ namespace NewCrm.Core.TicketServices
                                      Services = a.Services,
                                      Person = a.Person,
                                      UnseenNumber = _context.TicketingChats.Where(s => s.Ticket_ID == a.Ticket_ID && s.Seen == false).Count()
-                                }).OrderByDescending(o => o.DateOfCreation).ToListAsync();
+                                }).OrderByDescending(o => o.Ticket_ID).ToListAsync();
 
             return tickets;
         }
@@ -149,7 +149,7 @@ namespace NewCrm.Core.TicketServices
             Person s = await _context.People.SingleOrDefaultAsync(y =>y.PersonNational_ID == user.Resiver);
             if(s.Role1==3)
             {
-                return true;
+                a.Resiver = user.Resiver;
             }
             else
             {
