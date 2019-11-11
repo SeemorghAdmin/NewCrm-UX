@@ -65,6 +65,8 @@ namespace NewCrm.DataLayer.Entities.User
 
         public bool NeedChangePassword { get; set; }
 
+        public string AccessCodes { get; set; }
+
 
         #region Relations
 
