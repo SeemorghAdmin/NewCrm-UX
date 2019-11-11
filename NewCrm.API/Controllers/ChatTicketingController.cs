@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NewCrm.Core.DTOs;
 using NewCrm.Core.TicketServices.Interfaces;
+using NewCrm.DataLayer.Context;
 using NewCrm.DataLayer.Entities.Ticketing;
+using NewCrm.DataLayer.Entities.User;
 
 namespace NewCrm.API.Controllers
 {
@@ -15,10 +18,12 @@ namespace NewCrm.API.Controllers
     [ApiController]
     public class ChatTicketingController : ControllerBase
     {
+        private NewCrmContext _context;
         private ITicketChat  _ticketChat;
-        public ChatTicketingController(ITicketChat ticketService)
+        public ChatTicketingController(ITicketChat ticketService, NewCrmContext context)
         {
             _ticketChat = ticketService;
+            _context = context;
         }
         [Authorize]
         [HttpGet("{id}")]
@@ -34,9 +39,10 @@ namespace NewCrm.API.Controllers
             bool t;
             string u;
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
-            if(model.Resiver == "" || model.Resiver == null)
+            Person s = await _context.People.SingleOrDefaultAsync(y => y.Role1 == 2 && y.Role2 == 1);
+            if (model.Resiver == "" || model.Resiver == null)
             {
-                u = "4180109123";
+                u = s.PersonNational_ID;
             }
             else
             {

@@ -85,8 +85,7 @@ namespace NewCrm.Core.Services
         public async Task<IEnumerable<Person>> People()
         {
             var person = await (from a in _context.People
-                                where( (a.Role1 == 2 && a.Role2 == 2 ) || (a.Role1 ==2 && a.Role2==1))
-                              
+                                where( (a.Role1 == 2 && a.Role2 == 2 ) || (a.Role1 ==2 && a.Role2==1))                             
                                 select a).ToListAsync();
             return person;
         }
