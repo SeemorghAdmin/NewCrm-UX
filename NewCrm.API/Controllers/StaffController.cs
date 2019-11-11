@@ -58,14 +58,19 @@ namespace NewCrm.API.Controllers
                 BirthDate = new DateTime(model.BirthDate, 1, 1),
                 CreateTime = DateTime.Now,
                 LastEditTime = DateTime.Now,
-                IsActive = false,
+                IsActive = true,
+                NeedChangePassword = true,
                 Password = PasswordHasher.ComputeSha256Hash($"{model.UserName}seemsys123456")
             };
 
+            person.Role1 = 2;
             if (model.IsAdmin == true)
             {
-                person.Role1 = 2;
                 person.Role2 = 1;
+            }
+            else
+            {
+                person.Role2 = 2;
             }
 
             Staff staff = new Staff()

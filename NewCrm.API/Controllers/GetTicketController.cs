@@ -54,5 +54,14 @@ namespace NewCrm.API.Controllers
         {          
             return await _ticketService.PutResiver(id,user);
         }
+
+        [HttpGet]
+        [Route("count")]
+        public async Task<ActionResult<int>> GetCount()
+        {
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            
+            return await _ticketService.CountMessage(userId); ;
+        }
     }
 }

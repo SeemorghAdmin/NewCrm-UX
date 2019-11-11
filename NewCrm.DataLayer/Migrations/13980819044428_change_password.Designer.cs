@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewCrm.DataLayer.Context;
 
 namespace NewCrm.DataLayer.Migrations
 {
     [DbContext(typeof(NewCrmContext))]
-    partial class NewCrmContextModelSnapshot : ModelSnapshot
+    [Migration("13980819044428_change_password")]
+    partial class change_password
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

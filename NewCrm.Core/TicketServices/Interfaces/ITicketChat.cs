@@ -12,6 +12,5 @@ namespace NewCrm.Core.TicketServices.Interfaces
         Task<IEnumerable<TicketingChat>> GetTicketingChat(int id,string userId);
         Task<bool> AddComment(TicketingChat  ticketingChat);
         Task<bool> PutSeen(int id);
-        
     }
 }
