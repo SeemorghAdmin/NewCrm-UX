@@ -63,7 +63,7 @@ namespace NewCrm.DataLayer.Entities.User
 
         public string Token { get ; set; }
 
-        // public bool NeedChangePassword { get; set; }
+        public bool NeedChangePassword { get; set; }
 
 
         #region Relations
