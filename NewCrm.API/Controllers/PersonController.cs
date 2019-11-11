@@ -53,12 +53,20 @@ namespace NewCrm.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("changepassword")]
         public async Task<ActionResult<bool>> ChangePassword(ChangePassword changePassword)
         {
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
 
-            if (await _service.ChangePassword(userId, changePassword))
+            if (changePassword.UserId != userId)
+            {
+                return BadRequest("خطای در انجام عملیات رخ داده است.");
+            }
+
+            bool change = await _service.ChangePassword(userId, changePassword);
+            
+            if (change)
             {
                 return Ok(true);
             }

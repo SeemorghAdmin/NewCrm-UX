@@ -97,7 +97,8 @@ namespace NewCrm.Core.Services
 
             if (user.Password == changePassword.OldPassword)
             {
-                user.Password = PasswordHasher.ComputeSha256Hash($"{user.UserName}seemsys{changePassword.NewPassword}");
+                user.NeedChangePassword = false;
+                user.Password = PasswordHasher.ComputeSha256Hash($"{user.UserName}seemsys{changePassword.Password}");
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
                 return true;
