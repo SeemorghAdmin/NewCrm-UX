@@ -22,6 +22,7 @@ namespace NewCrm.DataLayer.Context
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<TicketingChat> TicketingChats { get; set; }
         public DbSet<Developer> Developers { get; set; }
+        public DbSet<AccessModifier> AccessModifiers { get; set; }
         #endregion
 
 
