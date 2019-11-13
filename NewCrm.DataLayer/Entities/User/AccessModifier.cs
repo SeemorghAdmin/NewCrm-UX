@@ -15,5 +15,8 @@ namespace NewCrm.DataLayer.Entities.User
         public bool Active { get; set; }
 
         public int Cat { get; set; }
+
+        [Column(TypeName = "nvarchar(2)")]
+        public string IStering { get; set; }
     }
 }
