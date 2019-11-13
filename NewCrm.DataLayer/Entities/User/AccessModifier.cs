@@ -8,6 +8,7 @@ namespace NewCrm.DataLayer.Entities.User
 {
     public class AccessModifier
     {
+        [Key]
         public int AccessModifier_ID { get; set; }
 
         public string Title { get; set; }
