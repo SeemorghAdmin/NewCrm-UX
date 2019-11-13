@@ -46,6 +46,11 @@ namespace NewCrm.Core.TicketServices
             return await _context.TicketingChats.Where(a => a.Resiver == userId && a.Seen == false).CountAsync();
         }
 
+        public async Task<int> CountTicket(string userId)
+        {
+            return await _context.Tickets.Where(a => a.Resiver == userId).CountAsync();
+        }
+
         public async Task<IEnumerable<Ticket>> GetAllTickets(string id)
         {
             var tickets = await (from a in _context.Tickets.Include(a => a.Services)

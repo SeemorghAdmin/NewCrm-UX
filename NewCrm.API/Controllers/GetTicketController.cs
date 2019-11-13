@@ -20,7 +20,7 @@ namespace NewCrm.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<DataLayer.Entities.Ticketing.Ticket>> GetServiceType()
+        public async Task<IEnumerable<DataLayer.Entities.Ticketing.Ticket>> GetTicket()
         {
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
             return await _ticketService.GetTicket(userId);
@@ -60,8 +60,14 @@ namespace NewCrm.API.Controllers
         public async Task<ActionResult<int>> GetCount()
         {
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
-            
             return await _ticketService.CountMessage(userId); ;
+        }
+        [HttpGet]
+        [Route("countTicket")]
+        public async Task<ActionResult<int>> GetCountTicket()
+        {
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            return await _ticketService.CountTicket(userId); 
         }
     }
 }

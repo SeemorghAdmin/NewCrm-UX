@@ -24,9 +24,7 @@ namespace NewCrm.Core.TicketServices
             await _context.TicketingChats.AddAsync(ticketingChat);
             await _context.SaveChangesAsync();
             return true;
-        }
-
-       
+        }    
         public async Task<IEnumerable<TicketingChat>> GetTicketingChat(int id,string userId)
         {
             var user = await _context.People.SingleOrDefaultAsync(r => r.PersonNational_ID == userId);
@@ -68,7 +66,6 @@ namespace NewCrm.Core.TicketServices
                 return ticket;
             }
         }
-
         public async Task<bool> PutSeen(int id)
         {          
              List<TicketingChat> a = await _context.TicketingChats.Where(b => b.Ticket_ID == id).ToListAsync();

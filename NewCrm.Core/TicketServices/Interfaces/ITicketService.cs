@@ -18,5 +18,6 @@ namespace NewCrm.Core.TicketServices.Interfaces
         Task<bool> PutResiver(int id, ChatTicketingViewModel user);
         Task<IEnumerable<Ticket>> GetOwnerTicket(string id);
         Task<int> CountMessage(string userId);
+        Task<int> CountTicket(string userId);
     }
 }
