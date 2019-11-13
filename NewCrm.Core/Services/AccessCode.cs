@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NewCrm.Core.DTOs;
 using NewCrm.Core.Services.Interfaces;
 using NewCrm.DataLayer.Context;
+using NewCrm.DataLayer.Entities.User;
 
 namespace NewCrm.Core.Services
 {
@@ -23,6 +26,11 @@ namespace NewCrm.Core.Services
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<IEnumerable<AccessModifier>> GetAccessModifier()
+        {
+            return await _context.AccessModifiers.Where(a => a.Category == 2).ToListAsync();
         }
     }
 }

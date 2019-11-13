@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NewCrm.Core.DTOs;
 using NewCrm.Core.Services.Interfaces;
+using NewCrm.DataLayer.Entities.User;
 
 namespace NewCrm.API.Controllers
 {
@@ -23,6 +24,13 @@ namespace NewCrm.API.Controllers
         public async Task<ActionResult<bool>> SetAccessCode(AccessCodeModel model)
         {
             return await _service.AddAccessCode(model);
+        }
+
+        [HttpGet]
+        [Route("getaccessmodifier")]
+        public async Task<IEnumerable<AccessModifier>> GetAccesModifier()
+        {
+            return await _service.GetAccessModifier();
         }
     }
 }
