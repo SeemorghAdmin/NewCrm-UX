@@ -56,7 +56,8 @@ namespace NewCrm.API
             services.AddTransient<ITicketService, TicketServices>();
             services.AddTransient<IgetService, GetService>();
             services.AddTransient<ITicketChat, TicketChatService>();
-            services.AddTransient<IDeveloperService, DeveloperServices>(); 
+            services.AddTransient<IDeveloperService, DeveloperServices>();
+            services.AddTransient<IAccessCode, AccessCode>();
             #endregion
 
             #region JWT

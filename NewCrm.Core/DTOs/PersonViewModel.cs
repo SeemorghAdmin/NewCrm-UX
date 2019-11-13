@@ -60,4 +60,11 @@ namespace NewCrm.Core.DTOs
 
         public string UserId { get; set; }
     }
+
+    public class AccessCodeModel
+    {
+        public string AccessCodes { get; set; }
+
+        public string UserId { get; set; }
+    }
 }
