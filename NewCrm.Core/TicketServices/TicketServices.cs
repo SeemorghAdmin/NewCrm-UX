@@ -154,10 +154,9 @@ namespace NewCrm.Core.TicketServices
         public async Task<bool> PutResiver(int id, ChatTicketingViewModel user)
         {
             Ticket a = await _context.Tickets.SingleOrDefaultAsync(r => r.Ticket_ID == id);
-            
-            Person s = await _context.People.SingleOrDefaultAsync(y => y.Role1 == 2 && y.Role2 == 1);
             if (user.Resiver == "" || user.Resiver == null)
             {
+                Person s = await _context.People.SingleOrDefaultAsync(y => y.Role1 == 2 && y.Role2 == 1 && y.Role3 == 1 && y.Role4 == 1);
                 a.Resiver =  s.PersonNational_ID;
             }
             else
