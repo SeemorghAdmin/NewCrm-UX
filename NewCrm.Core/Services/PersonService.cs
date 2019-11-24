@@ -107,6 +107,11 @@ namespace NewCrm.Core.Services
             return false;
         }
 
+        public async Task<Person> UserProfile(string userId)
+        {
+            return await _context.People.FindAsync(userId);
+        }
+
       
     }
 }

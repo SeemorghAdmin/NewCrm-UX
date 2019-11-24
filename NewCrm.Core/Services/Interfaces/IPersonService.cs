@@ -22,5 +22,7 @@ namespace NewCrm.Core.Services.Interfaces
         Task<IEnumerable<Person>> People();
 
         Task<bool> ChangePassword(string personNationalId, ChangePassword changePassword);
+
+        Task<Person> UserProfile(string userId);
     }
 }

@@ -44,10 +44,13 @@ namespace NewCrm.API.Controllers
         [HttpGet]
         [Authorize]
         [Route("userprofile")]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Person>> GetAll()
         {
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
-            return Ok(userId);
+
+            var user = await _service.UserProfile(userId);
+            user.Password = null;
+            return Ok(user);
         }
 
         [HttpPost]
