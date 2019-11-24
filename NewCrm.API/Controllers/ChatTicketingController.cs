@@ -40,9 +40,10 @@ namespace NewCrm.API.Controllers
             bool t;
             string u;
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
-            Person s = await _context.People.SingleOrDefaultAsync(y => y.Role1 == 2 && y.Role2 == 1);
+            
             if (model.Resiver == "" || model.Resiver == null)
             {
+                Person s = await _context.People.SingleOrDefaultAsync(y => y.Role1 == 2 && y.Role2 == 1 && y.Role3 == 1 && y.Role4 == 1);
                 u = s.PersonNational_ID;
             }
             else
