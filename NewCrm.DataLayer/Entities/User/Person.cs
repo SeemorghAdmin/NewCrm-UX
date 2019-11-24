@@ -69,7 +69,7 @@ namespace NewCrm.DataLayer.Entities.User
 
 
         #region Relations
-
+       
         #endregion
     }
 }

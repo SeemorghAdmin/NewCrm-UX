@@ -19,12 +19,14 @@ namespace NewCrm.Core.TicketServices
         {
             _context = context;
         }
+        //ثبت پیام های ارسالی بین کاربران با سطوح مختلف در جدول
         public async Task<bool> AddComment(TicketingChat ticketingChat)
         {
             await _context.TicketingChats.AddAsync(ticketingChat);
             await _context.SaveChangesAsync();
             return true;
-        }    
+        }   
+       //نمایش پیام های مربوط به یک تیکت بر اساس اینکه کاربر مشتری باشد یا مدیر فنی
         public async Task<IEnumerable<TicketingChat>> GetTicketingChat(int id,string userId)
         {
             var user = await _context.People.SingleOrDefaultAsync(r => r.PersonNational_ID == userId);
@@ -66,6 +68,7 @@ namespace NewCrm.Core.TicketServices
                 return ticket;
             }
         }
+        //تغییر وضعیت پیام خوانده نشده به پیام خوانده شده
         public async Task<bool> PutSeen(int id)
         {          
              List<TicketingChat> a = await _context.TicketingChats.Where(b => b.Ticket_ID == id).ToListAsync();

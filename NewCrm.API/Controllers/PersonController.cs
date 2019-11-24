@@ -47,8 +47,6 @@ namespace NewCrm.API.Controllers
         public IActionResult GetAll()
         {
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
-
-            
             return Ok(userId);
         }
 

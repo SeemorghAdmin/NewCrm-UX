@@ -23,6 +23,7 @@ namespace NewCrm.Core.TicketServices
         {
             _context = context;
         }
+        //ثبت یک تیکت جدید توسط کاربر
         public async Task<int> AddTicket(Ticket ticket)
         {
             await _context.Tickets.AddAsync(ticket);
@@ -31,7 +32,7 @@ namespace NewCrm.Core.TicketServices
 
             return ticket.Ticket_ID;
         }
-
+        //ثبت پیام های رد و بدل شده توسط کاربران با سطوح مختلف 
         public async Task<bool> AddTicketingChat(TicketingChat ticket)
         {
             await  _context.TicketingChats.AddAsync(ticket);
@@ -40,17 +41,17 @@ namespace NewCrm.Core.TicketServices
 
             return true;
         }
-
+        //به دست آوردن تعداد پیام های خوانده نشده
         public async Task<int> CountMessage(string userId)
         {
             return await _context.TicketingChats.Where(a => a.Resiver == userId && a.Seen == false).CountAsync();
         }
-
+        //به دست آوردن تعداد تیکت های ارسالی به مدیر فنی یا پشتیبان
         public async Task<int> CountTicket(string userId)
         {
             return await _context.Tickets.Where(a => a.Resiver == userId).CountAsync();
         }
-
+        //مشاهده تیکت ها توسط مدیر فنی یا پشتیبان
         public async Task<IEnumerable<Ticket>> GetAllTickets(string id)
         {
             var tickets = await (from a in _context.Tickets.Include(a => a.Services)
@@ -67,12 +68,12 @@ namespace NewCrm.Core.TicketServices
                                      Status = a.Status,
                                      Services = a.Services,
                                      Person = a.Person,
-                                     UnseenNumber = _context.TicketingChats.Where(s => s.Ticket_ID == a.Ticket_ID && s.Seen == false).Count()
+                                     UnseenNumber = _context.TicketingChats.Where(s => s.Ticket_ID == a.Ticket_ID && s.Seen == false && s.PersonNational_ID != id).Count()
                                 }).OrderByDescending(o => o.Ticket_ID).ToListAsync();
 
             return tickets;
         }
-
+        //مشاهده مشتریان بر درخواست های ارسال شده و غیر فعال خود
         public async Task<IEnumerable<Ticket>> GetDiactiveTicket(string id)
         {
             var ticket = await (from a in _context.Tickets.Include(a => a.Services)
@@ -92,7 +93,7 @@ namespace NewCrm.Core.TicketServices
                                }).ToListAsync();
             return ticket;
         }
-
+        //مشاهده مدیر فنی یا پشتیبان بر تیکت های غیر فعال 
         public async Task<IEnumerable<Ticket>> GetOwnerTicket(string id)
         {
             var ticket = await (from a in _context.Tickets.Include(a => a.Services)
@@ -112,10 +113,9 @@ namespace NewCrm.Core.TicketServices
                                 }).ToListAsync();
             return ticket;
         }
-
+        //مشاهده مشتریان بر تیکت های ارسالی و فعال خود
         public async Task<IEnumerable<Ticket>> GetTicket(string id)
         {
-           
             var ticket = await (from a in _context.Tickets.Include(a => a.Services)
                               .Include(a => a.Person)
                                 where a.Active == true && a.PersonNational_ID == id
@@ -133,9 +133,7 @@ namespace NewCrm.Core.TicketServices
                                 }).OrderByDescending(o => o.Ticket_ID).ToListAsync(); 
             return ticket;
         }
-
-       
-
+        //فعال سازی یا غیر فعال سازی تیکت ها توسط این متد انجام میشود
         public async Task<bool> PutDiactiveTcket(int id)
         {
             Ticket a =await _context.Tickets.FindAsync(id);
@@ -152,7 +150,7 @@ namespace NewCrm.Core.TicketServices
             await _context.SaveChangesAsync();
             return true;
         }
-
+        //ویرایش و ثبت آیدی فردی که آخرین پیام برای او ارسال میشود
         public async Task<bool> PutResiver(int id, ChatTicketingViewModel user)
         {
             Ticket a = await _context.Tickets.SingleOrDefaultAsync(r => r.Ticket_ID == id);
@@ -166,9 +164,6 @@ namespace NewCrm.Core.TicketServices
             {
                 a.Resiver = user.Resiver;
             }
-
-           
-
             _context.Entry(a).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return true;

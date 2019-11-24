@@ -25,6 +25,7 @@ namespace NewCrm.API.Controllers
             _ticketChat = ticketService;
             _context = context;
         }
+        //ارسال چت هایی که در یک تیکت انجام شده به کاربر یا میدر فنی و پشتیبان
         [Authorize]
         [HttpGet("{id}")]
         public async Task<IEnumerable<DataLayer.Entities.Ticketing.TicketingChat>> GetTicketChat(int id)
@@ -32,7 +33,7 @@ namespace NewCrm.API.Controllers
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
             return await _ticketChat.GetTicketingChat(id,userId);
         }
-
+        //ثبت پیام هایی که بین افراد با سطوح مختلف دسترسی رد و بدل میشوند در جدول 
         [HttpPost]
         public async Task<ActionResult<bool>> PostAddTicketingChat(ChatTicketingViewModel model)
         {
@@ -68,6 +69,7 @@ namespace NewCrm.API.Controllers
             };
             return await _ticketChat.AddComment(ticketingChat);
         }
+        //تغییر پیام خوانده نشده به پیام خوانده شده 
         [HttpPut("{id}")]
         public async Task<bool> PutSeen(int id)
         {

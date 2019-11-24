@@ -30,10 +30,10 @@ namespace NewCrm.API.Controllers
             _service = service;
             _context = context;
         }
+        //درج اطلاعات یک تیکت جدید که توسط کاربر ایجاد شده و همچنین درج متن پیام در جدول تیکت چت
         [HttpPost]
         public async Task<ActionResult<bool>> PostAddTicketingChat(CreatTicketViewModel model)
         {
-
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
             Person s = await _context.People.SingleOrDefaultAsync(y => y.Role1 == 2 && y.Role2 == 1);
             Ticket ticket = new Ticket()
@@ -56,16 +56,16 @@ namespace NewCrm.API.Controllers
                 Confidential = false,
                 Resiver = s.PersonNational_ID,
                 Sender = userId,
-
             };
             return await _ticketService.AddTicketingChat(ticketingChat);
         }
-
+        //نمایش سرویس هایی که برای آنها پشتیبانی فنی ارایه مشود
         [HttpGet("{id}")]
         public IEnumerable<DataLayer.Entities.Ticketing.Services> GetServiceType(int id)
         {
             return _getService.GetServiceAsync(id);
         }
+        //فعال سازی یا غیر فعال سازی تیکت ها 
        [HttpPut("{id}")]      
         public async Task<bool> PutDiactiveTicket(int id)
         {
