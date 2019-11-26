@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NewCrm.Core.DTOs;
 using NewCrm.Core.Services.Interfaces;
 using NewCrm.DataLayer.Entities.User;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NewCrm.API.Controllers
 {
