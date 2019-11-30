@@ -81,6 +81,12 @@ namespace NewCrm.API.Controllers
         {
             return await _service.People();
         }
+        [HttpGet]
+        [Route("getDeveloperPerson")]
+        public async Task<IEnumerable<Person>> DeveloperPeople()
+        {
+            return await _service.PeopleDeveloper();
+        }
 
     }
 }

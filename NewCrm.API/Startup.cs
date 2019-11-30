@@ -20,6 +20,8 @@ using NewCrm.Core.Generators;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using NewCrm.Core.DeveloperTicketServices.Interfaces;
+using NewCrm.Core.DeveloperTicketServices;
 
 namespace NewCrm.API
 {
@@ -58,6 +60,7 @@ namespace NewCrm.API
             services.AddTransient<ITicketChat, TicketChatService>();
             services.AddTransient<IDeveloperService, DeveloperServices>();
             services.AddTransient<IAccessCode, AccessCode>();
+            services.AddTransient<IDeveloperTicketService,DeveloperTicketService >();
             #endregion
 
             #region JWT

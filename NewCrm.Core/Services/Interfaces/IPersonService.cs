@@ -20,6 +20,7 @@ namespace NewCrm.Core.Services.Interfaces
         Task<Person> Login(LoginViewModel loginViewModel);
 
         Task<IEnumerable<Person>> People();
+        Task<IEnumerable<Person>> PeopleDeveloper();
 
         Task<bool> ChangePassword(string personNationalId, ChangePassword changePassword);
 
