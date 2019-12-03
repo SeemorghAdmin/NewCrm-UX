@@ -20,6 +20,8 @@ using NewCrm.Core.Generators;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using NewCrm.Core.DeveloperTicketServices.Interfaces;
+using NewCrm.Core.DeveloperTicketServices;
 
 namespace NewCrm.API
 {
@@ -60,6 +62,7 @@ namespace NewCrm.API
             services.AddTransient<IAccessCode, AccessCode>();
             services.AddTransient<IUnivercityService, UnivercityService>();
             services.AddTransient<IUniReport, UniReport>();
+            services.AddTransient<IDeveloperTicketService,DeveloperTicketService >();
             #endregion
 
             #region JWT

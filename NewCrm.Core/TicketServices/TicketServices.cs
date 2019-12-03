@@ -129,7 +129,8 @@ namespace NewCrm.Core.TicketServices
                                     Active = a.Active,
                                     Status = a.Status,
                                     Services = a.Services,
-                                    Person = a.Person
+                                    Person = a.Person,
+                                    UnseenNumber = _context.TicketingChats.Where(s => s.Ticket_ID == a.Ticket_ID && s.Seen == false && s.PersonNational_ID != id).Count()
                                 }).OrderByDescending(o => o.Ticket_ID).ToListAsync(); 
             return ticket;
         }

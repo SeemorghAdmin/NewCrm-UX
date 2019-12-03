@@ -112,6 +112,12 @@ namespace NewCrm.Core.Services
             return await _context.People.FindAsync(userId);
         }
 
-      
+        public async Task<IEnumerable<Person>> PeopleDeveloper()
+        {
+            var person = await(from a in _context.People
+                               where (a.Role1 ==1   || (a.Role1 == 2 && a.Role2 == 1) ) 
+                               select a).ToListAsync();
+            return person;
+        }
     }
 }

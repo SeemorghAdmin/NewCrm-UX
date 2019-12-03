@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using NewCrm.DataLayer.Entities.TicketForDeveloper;
 using NewCrm.DataLayer.Entities.Ticketing;
 using NewCrm.DataLayer.Entities.User;
 
@@ -23,6 +24,8 @@ namespace NewCrm.DataLayer.Context
         public DbSet<TicketingChat> TicketingChats { get; set; }
         public DbSet<Developer> Developers { get; set; }
         public DbSet<AccessModifier> AccessModifiers { get; set; }
+        public DbSet<DeveloperTicket>  DeveloperTickets { get; set; }
+        public DbSet<DeveloperTicketChat>  DeveloperTicketChats { get; set; }
         #endregion
 
 
