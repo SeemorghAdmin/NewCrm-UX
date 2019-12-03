@@ -58,6 +58,8 @@ namespace NewCrm.API
             services.AddTransient<ITicketChat, TicketChatService>();
             services.AddTransient<IDeveloperService, DeveloperServices>();
             services.AddTransient<IAccessCode, AccessCode>();
+            services.AddTransient<IUnivercityService, UnivercityService>();
+            services.AddTransient<IUniReport, UniReport>();
             #endregion
 
             #region JWT
