@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NewCrm.Core.DeveloperTicketServices.Interfaces;
 using NewCrm.Core.DeveloperTicketServices;
+using NewCrm.DataLayer.Entities.EC;
 
 namespace NewCrm.API
 {
@@ -48,6 +49,9 @@ namespace NewCrm.API
             #region DataContext
             services.AddDbContext<NewCrmContext>(option => 
                 option.UseSqlServer(Configuration.GetConnectionString("NewCrmConnection")));
+
+            services.AddDbContext<nernContext>(option =>
+                option.UseMySQL(Configuration.GetConnectionString("ECConnection")));
             #endregion
 
             #region Intetfaces
