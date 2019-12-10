@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NewCrm.Core.DTOs;
 using NewCrm.Core.Services.Interfaces;
+
 
 namespace NewCrm.API.Controllers
 {
@@ -13,22 +15,28 @@ namespace NewCrm.API.Controllers
     public class UnivercityController : ControllerBase
     {
         private readonly IUnivercityService _service;
-
+       
         public UnivercityController(IUnivercityService service)
         {
             _service = service;
         }
 
         [HttpPost]
-        public bool Delete( int id)
+        public async Task<ActionResult<bool>> Delete( long id)
         {
-            return _service.Delete(id);
+            return await _service.Delete(id);
         }
 
         [HttpGet]
-        public IEnumerable<object> GetAll()
+        public async Task<IEnumerable<ServiceFormViewModel>> GetAll()
         {
-            return _service.GetServiceForm();
+            return await _service.GetServiceForm();
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeleteServiceForm(int id)
+        {
+            return await _service.DeleteServiceForm(id);
         }
     }
 }

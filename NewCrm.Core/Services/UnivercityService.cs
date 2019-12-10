@@ -4,75 +4,59 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using NewCrm.DataLayer.Entities.EC;
+using Microsoft.EntityFrameworkCore;
+using NewCrm.Core.DTOs;
 
 namespace NewCrm.Core.Services
 {
     public class UnivercityService : IUnivercityService
     {
-        private List<Uni> _uni = new List<Uni>
-        {
-            new Uni { UniId = 1, UniName = "Test1"},
-            new Uni { UniId = 2, UniName = "Test2"},
-            new Uni { UniId = 3, UniName = "Test3"}
-        };
+        private nernContext _context;
 
-        public List<ServiceF> serviceFs = new List<ServiceF>
+        public UnivercityService(nernContext nernContext)
         {
-            new ServiceF { UniName = "test1", Title = "test1", Status = "ok", Number = "123456", Time = "1398",
-                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
-            new ServiceF { UniName = "test2", Title = "test2", Status = "ok", Number = "123456", Time = "1398",
-                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
-            new ServiceF { UniName = "test3", Title = "test3", Status = "ok", Number = "123456", Time = "1398",
-                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
-            new ServiceF { UniName = "test4", Title = "test4", Status = "ok", Number = "123456", Time = "1398",
-                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
-            new ServiceF { UniName = "test5", Title = "test5", Status = "ok", Number = "123456", Time = "1398",
-                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
-            new ServiceF { UniName = "test6", Title = "test6", Status = "ok", Number = "123456", Time = "1398",
-                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
-            new ServiceF { UniName = "test7", Title = "test7", Status = "ok", Number = "123456", Time = "1398",
-                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
-        };
-        public bool Delete(int id)
+            _context = nernContext;
+        }
+
+        public async Task<bool> Delete(long id)
         {
-            var uni = _uni.First(a => a.UniId == id);
-            _uni.Remove(uni);
+            var uni = await _context.University.SingleOrDefaultAsync(a => a.UniNationalId == id);
+            uni.Active = false;
+            _context.Entry(uni).State = EntityState.Modified;
+
+            var person = await _context.PersonalInfo.SingleOrDefaultAsync(a => a.Username == id.ToString());
+            person.Active = false;
+            _context.Entry(person).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public IEnumerable<object> GetServiceForm()
+        public async Task<bool> DeleteServiceForm(int id)
         {
-            return serviceFs.ToList();
+            var service = await _context.ServiceFormRequest.SingleOrDefaultAsync(a => a.Id == (long)id);
+
+            service.Active = false;
+            _context.Entry(service).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
-    }
 
-    public class Uni
-    {
-        public int UniId { get; set; }
-
-        public string UniName { get; set; }
-    }
-
-    public class ServiceF
-    {
-        public string UniName { get; set; }
-
-        public string Title { get; set; }
-
-        public string Status { get; set; }
-
-        public string Number { get; set; }
-
-        public string Time { get; set; }
-
-        public string FormatContract { get; set; }
-
-        public string SinglSignatureContract { get; set; }
-
-        public string FinalContract { get; set; }
-
-        public string Letter { get; set; }
-
-        public string ReceiptPost { get; set; }
+        public async Task<IEnumerable<ServiceFormViewModel>> GetServiceForm()
+        {
+            var query = await (from s in _context.ServiceFormRequest
+                               join u in _context.University on s.UniId equals u.UniNationalId
+                               select new ServiceFormViewModel
+                               {
+                                   Id = s.Id,
+                                   UniName = u.UniName,
+                                   Status = s.StatusVal.ToString(),
+                                   Number = s.ServiceFormContractNo,
+                                   Time = s.ServiceFormContractDate.ToString()
+                               }).ToListAsync();
+            return query;
+        }
     }
 }

@@ -18,5 +18,6 @@ namespace NewCrm.DataLayer.Entities.EC
         public byte[] PostReceipt { get; set; }
         public byte[] SignedForm { get; set; }
         public int? StatusVal { get; set; }
+        public bool Active { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NewCrm.Core.DTOs;
+using NewCrm.DataLayer.Entities.EC;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,8 +9,10 @@ namespace NewCrm.Core.Services.Interfaces
 {
     public interface IUnivercityService
     {
-        bool Delete(int id);
+        Task<bool> Delete(long id);
 
-        IEnumerable<object> GetServiceForm();
+        Task<IEnumerable<ServiceFormViewModel>> GetServiceForm();
+
+        Task<bool> DeleteServiceForm(int id);
     }
 }
