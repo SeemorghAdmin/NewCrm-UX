@@ -51,7 +51,7 @@ namespace NewCrm.Core.Services
                         {
                             u.TypeVal,
                             u.UniStatus,
-                            u.UniSubStatus
+                            u.UniSubCode
                         };
             return query;
         }
