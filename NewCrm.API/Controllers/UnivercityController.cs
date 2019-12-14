@@ -38,5 +38,15 @@ namespace NewCrm.API.Controllers
         {
             return await _service.DeleteServiceForm(id);
         }
+
+
+
+
+        [HttpGet]
+        [Route("ReportSubs")]
+       public async Task<IEnumerable<object>> GetUni()
+        {
+            return await _service.GetAllUniversity();
+        }
     }
 }

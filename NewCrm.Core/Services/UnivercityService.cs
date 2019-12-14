@@ -44,6 +44,18 @@ namespace NewCrm.Core.Services
             return true;
         }
 
+        public async Task<IEnumerable<object>> GetAllUniversity()
+        {
+            var query = from u in _context.University
+                        select new
+                        {
+                            u.TypeVal,
+                            u.UniStatus,
+                            u.UniSubStatus
+                        };
+            return query;
+        }
+        
         public async Task<IEnumerable<ServiceFormViewModel>> GetServiceForm()
         {
             var query = await (from s in _context.ServiceFormRequest
