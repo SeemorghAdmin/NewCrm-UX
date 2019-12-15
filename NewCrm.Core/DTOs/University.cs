@@ -17,14 +17,14 @@ namespace NewCrm.Core.DTOs
 
         public string Time { get; set; }
 
-        public string FormatContract { get; set; }
+        public bool FormatContract { get; set; }
 
-        public string SinglSignatureContract { get; set; }
+        public bool SinglSignatureContract { get; set; }
 
-        public string FinalContract { get; set; }
+        public bool FinalContract { get; set; }
 
-        public string Letter { get; set; }
+        public bool Letter { get; set; }
 
-        public string ReceiptPost { get; set; }
+        public bool ReceiptPost { get; set; }
     }
 }

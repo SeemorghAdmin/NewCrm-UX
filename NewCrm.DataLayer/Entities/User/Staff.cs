@@ -16,7 +16,7 @@ namespace NewCrm.DataLayer.Entities.User
         public string StaffNumber { get; set; }
 
         [Required]
-        public int PositionId { get; set; }
+        public string PositionId { get; set; }
 
         public string Address { get; set; }
 

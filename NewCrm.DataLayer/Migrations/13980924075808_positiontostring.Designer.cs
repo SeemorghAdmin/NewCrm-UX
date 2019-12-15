@@ -10,8 +10,8 @@ using NewCrm.DataLayer.Context;
 namespace NewCrm.DataLayer.Migrations
 {
     [DbContext(typeof(NewCrmContext))]
-    [Migration("20191203115446_Init")]
-    partial class Init
+    [Migration("13980924075808_positiontostring")]
+    partial class positiontostring
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -205,27 +205,6 @@ namespace NewCrm.DataLayer.Migrations
                     b.ToTable("TicketingChats");
                 });
 
-            modelBuilder.Entity("NewCrm.DataLayer.Entities.Upload.ServiceFileUpload", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContentType");
-
-                    b.Property<byte[]>("Data");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("TypeOfFile");
-
-                    b.Property<int>("Unumber");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ServiceFileUploads");
-                });
-
             modelBuilder.Entity("NewCrm.DataLayer.Entities.User.AccessModifier", b =>
                 {
                     b.Property<int>("AccessModifier_ID")
@@ -352,7 +331,8 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.Property<string>("PersonNational_ID");
 
-                    b.Property<int>("PositionId");
+                    b.Property<string>("PositionId")
+                        .IsRequired();
 
                     b.Property<string>("StaffNumber")
                         .IsRequired()

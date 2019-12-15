@@ -172,7 +172,7 @@ namespace NewCrm.API.Controllers
                     EduDegree = null,
                     EduField = null,
                     PersonNational_ID = await _personService.AddPerson(person),
-                    PositionId = 100,
+                    PositionId = null,
                     StaffNumber = model.Id,
                     TeleNumber = null
                 };

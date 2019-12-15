@@ -77,17 +77,44 @@ namespace NewCrm.Core.Services
         
         public async Task<IEnumerable<ServiceFormViewModel>> GetServiceForm()
         {
+
             var query = await (from s in _context.ServiceFormRequest
                                join u in _context.University on s.UniId equals u.UniNationalId
-                               select new ServiceFormViewModel
+                               select new
                                {
-                                   Id = s.Id,
-                                   UniName = u.UniName,
-                                   Status = s.StatusVal.ToString(),
-                                   Number = s.ServiceFormContractNo,
-                                   Time = s.ServiceFormContractDate.ToString()
+                                   s.Id,
+                                   u.UniName,
+                                   s.StatusVal,
+                                   s.ServiceFormContractNo,
+                                   s.ServiceFormContractDate,
+
+                                   //FormatContract = true,
+                                   s.SignedForm,
+                                   s.FinalSignedForm,
+                                   s.Letter,
+                                   s.PostReceipt,
                                }).ToListAsync();
-            return query;
+
+            List<ServiceFormViewModel> list = new List<ServiceFormViewModel>();
+
+            foreach (var item in query)
+            {
+                list.Add(new ServiceFormViewModel
+                {
+                    Id = item.Id,
+                    UniName = item.UniName,
+                    Status = item.StatusVal.ToString(),
+                    Number = item.ServiceFormContractNo,
+                    Time = item.ServiceFormContractDate.ToString(),
+                    FormatContract = true,
+                    SinglSignatureContract = (item.SignedForm != null) ? true : false,
+                    FinalContract = (item.FinalSignedForm != null) ? true : false,
+                    Letter = (item.Letter != null) ? true : false,
+                    ReceiptPost = (item.PostReceipt != null) ? true : false
+                });
+            }
+
+            return list;
         }
     }
 }

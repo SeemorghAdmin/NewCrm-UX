@@ -18,7 +18,7 @@ namespace NewCrm.Core.DTOs
 
         public int BirthDate { get; set; }
 
-        public int PositionId { get; set; }
+        public string PositionId { get; set; }
 
         public string TeleNumber { get; set; }
 

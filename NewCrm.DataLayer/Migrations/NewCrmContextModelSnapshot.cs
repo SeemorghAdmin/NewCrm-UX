@@ -350,7 +350,8 @@ namespace NewCrm.DataLayer.Migrations
 
                     b.Property<string>("PersonNational_ID");
 
-                    b.Property<int>("PositionId");
+                    b.Property<string>("PositionId")
+                        .IsRequired();
 
                     b.Property<string>("StaffNumber")
                         .IsRequired()
