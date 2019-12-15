@@ -16,7 +16,26 @@ namespace NewCrm.Core.Services
 
         public UnivercityService(nernContext nernContext)
         {
-            _context = nernContext;
+            new ServiceF { UniName = "test1", Title = "test1", Status = "ok", Number = "123456", Time = "1398",
+                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
+            new ServiceF { UniName = "test2", Title = "test2", Status = "ok", Number = "123456", Time = "1398",
+                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
+            new ServiceF { UniName = "test3", Title = "test3", Status = "ok", Number = "123456", Time = "1398",
+                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
+            new ServiceF { UniName = "test4", Title = "test4", Status = "ok", Number = "123456", Time = "1398",
+                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
+            new ServiceF { UniName = "test5", Title = "test5", Status = "ok", Number = "123456", Time = "1398",
+                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
+            new ServiceF { UniName = "test6", Title = "test6", Status = "ok", Number = "123456", Time = "1398",
+                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
+            new ServiceF { UniName = "test7", Title = "test7", Status = "ok", Number = "123456", Time = "1398",
+                FinalContract = "test", FormatContract = "teee", Letter = "test", ReceiptPost = "ddd", SinglSignatureContract = "fffff"},
+        };
+        public bool Delete(int id)
+        {
+            var uni = _uni.First(a => a.UniId == id);
+            _uni.Remove(uni);
+            return true;
         }
 
         public async Task<bool> Delete(long id)

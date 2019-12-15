@@ -16,6 +16,6 @@ namespace NewCrm.Core.DeveloperTicketServices.Interfaces
         Task<IEnumerable<DeveloperTicketChat>> GetDeveloperTicketChat(int id, string userId);
         Task<bool> AddComment(DeveloperTicketChat  developerTicketChat);
         Task<bool> PutResiverDeveloper(int id, DeveloperTicketigViewModel user);
-        Task<bool> PutSeen(int id);
+        Task<bool> PutSeen(int id,string userId);
     }
 }

@@ -22,7 +22,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NewCrm.Core.DeveloperTicketServices.Interfaces;
 using NewCrm.Core.DeveloperTicketServices;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 using NewCrm.DataLayer.Entities.EC;
+using NewCrm.Core.UniversityService;
+using NewCrm.Core.UniversityService.Interfaces;
 
 namespace NewCrm.API
 {
@@ -67,6 +72,7 @@ namespace NewCrm.API
             services.AddTransient<IUnivercityService, UnivercityService>();
             services.AddTransient<IUniReport, UniReport>();
             services.AddTransient<IDeveloperTicketService,DeveloperTicketService >();
+            services.AddTransient<IUniversity, UniversityService>();
             #endregion
 
             #region JWT
@@ -105,6 +111,12 @@ namespace NewCrm.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
             app.UseCors("Cors");
             app.UseAuthentication();
             app.UseMvc();

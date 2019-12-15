@@ -70,11 +70,12 @@ namespace NewCrm.API.Controllers
             };
             return await _ticketChat.AddComment(ticketingChat);
         }
-        //تغییر پیام خوانده نشده به پیام خوانده شده 
+        //تغییر وضعیت پیام های خوانده نشده به خوانده شده
         [HttpPut("{id}")]
         public async Task<bool> PutSeen(int id)
         {
-            return await _ticketChat.PutSeen(id);
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            return await _ticketChat.PutSeen(id,userId);
         }
     }
 }

@@ -69,9 +69,9 @@ namespace NewCrm.Core.TicketServices
             }
         }
         //تغییر وضعیت پیام خوانده نشده به پیام خوانده شده
-        public async Task<bool> PutSeen(int id)
+        public async Task<bool> PutSeen(int id,string userId)
         {          
-             List<TicketingChat> a = await _context.TicketingChats.Where(b => b.Ticket_ID == id).ToListAsync();
+             List<TicketingChat> a = await _context.TicketingChats.Where(b => b.Ticket_ID == id && b.Resiver == userId ).ToListAsync();
             foreach (var item in a)
             {
                 item.Seen = true;

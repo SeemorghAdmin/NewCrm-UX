@@ -21,12 +21,14 @@ namespace NewCrm.API.Controllers
             _context = context;
             _developerTicketService = iDeveloperTicketService;
         }
+        //////نمایش تیکت های ایجاد شده توسط هر فرد//////
         [HttpGet]
         public async Task<IEnumerable<DeveloperTicket>> GetTicket()
         {
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
             return await _developerTicketService.GetTicket(userId);
         }
+        //////نمایش تیکت ها به مدیر خاشع/////
         [HttpGet]
         [Route("TicketForOwnerManager")]
         public async Task<IEnumerable<DeveloperTicket>> GetTicketForOwnerManager()
@@ -34,7 +36,7 @@ namespace NewCrm.API.Controllers
             string userId = User.Claims.First(c => c.Type == "seemsys").Value;
             return await _developerTicketService.GetTicketForOwnerManager(userId);
         }
-       
+       /////نمایش تیکت های ارسالی به برنامه نویسان//////
         [Route("DeveloperTcketChat")]
         public async Task<IEnumerable<DeveloperTicketChat>> GetDeveloperTicketChat(int id)
         {

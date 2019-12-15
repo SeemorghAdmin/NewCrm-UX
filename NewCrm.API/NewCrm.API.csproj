@@ -23,4 +23,8 @@
     <ProjectReference Include="..\NewCrm.DataLayer\NewCrm.DataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+  </ItemGroup>
+
 </Project>

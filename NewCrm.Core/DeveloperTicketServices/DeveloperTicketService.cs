@@ -20,22 +20,21 @@ namespace NewCrm.Core.DeveloperTicketServices
         {
             _context = context;
         }
-
+        /////اضافه کردن پیام در هر گفت و گو//////
         public async Task<bool> AddComment(DeveloperTicketChat developerTicketChat)
         {
-
             await _context.DeveloperTicketChats.AddAsync(developerTicketChat);
             await _context.SaveChangesAsync();
             return true;
         }
-
+        //////ایجاد تیکت توسط کارمندان خاشع//////
         public async Task<int> AddTicket(DeveloperTicket ticket)
         {
             await _context.DeveloperTickets.AddAsync(ticket);
             await _context.SaveChangesAsync();
             return ticket.DeveloperTicket_ID;
         }
-
+        /////اضافه کردن پیام در هر گفت و گو//////
         public async Task<bool> AddTicketingChat(DeveloperTicketChat ticket)
         {
             await _context.DeveloperTicketChats.AddAsync(ticket);
@@ -44,7 +43,7 @@ namespace NewCrm.Core.DeveloperTicketServices
 
             return true;
         }
-
+        //////نمایش پیام های موجود در هر تیکت//////
         public async Task<IEnumerable<DeveloperTicketChat>> GetDeveloperTicketChat(int id, string userId)
         {
             var user = await _context.People.SingleOrDefaultAsync(r => r.PersonNational_ID == userId);
@@ -86,7 +85,7 @@ namespace NewCrm.Core.DeveloperTicketServices
                 return ticket;
             }
         }
-
+        /////نمایش تیکت های ارسالی کارمندان خاشع/////
         public async Task<IEnumerable<DeveloperTicket>> GetTicket(string id)
         {
             var ticket = await(from a in _context.DeveloperTickets
@@ -104,7 +103,7 @@ namespace NewCrm.Core.DeveloperTicketServices
                                }).OrderByDescending(o => o.DeveloperTicket_ID).ToListAsync();
             return ticket;
         }
-
+        //////نمایش تیکت های ارسالی به مدیر خشع////
         public async Task<IEnumerable<DeveloperTicket>> GetTicketForOwnerManager(string id)
         {
             var ticket = await (from a in _context.DeveloperTickets
@@ -122,7 +121,7 @@ namespace NewCrm.Core.DeveloperTicketServices
                                 }).OrderByDescending(o => o.DeveloperTicket_ID).ToListAsync();
             return ticket;
         }
-
+        /////ویرایش وثبت آیدی فردی که تیکت به آن ارجاع داده میشود//////
         public async Task<bool> PutResiverDeveloper(int id, DeveloperTicketigViewModel user)
         {
             DeveloperTicket a = await _context.DeveloperTickets.SingleOrDefaultAsync(r => r.DeveloperTicket_ID == id);
@@ -139,10 +138,10 @@ namespace NewCrm.Core.DeveloperTicketServices
             await _context.SaveChangesAsync();
             return true;
         }
-
-        public async Task<bool> PutSeen(int id)
+        /////ویرایش وضعیت پیام ها از خوانده نشده به خوانده شده////
+        public async Task<bool> PutSeen(int id,string userId)
         {
-            List<DeveloperTicketChat> a = await _context.DeveloperTicketChats.Where(b => b.DeveloperTicket_ID == id).ToListAsync();
+            List<DeveloperTicketChat> a = await _context.DeveloperTicketChats.Where(b => b.DeveloperTicket_ID == id && b.Resiver == userId).ToListAsync();
             foreach (var item in a)
             {
                 item.Seen = true;

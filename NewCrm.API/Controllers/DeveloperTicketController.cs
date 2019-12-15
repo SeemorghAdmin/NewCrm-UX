@@ -24,6 +24,7 @@ namespace NewCrm.API.Controllers
             _context = context;
             _developerTicketService = iDeveloperTicketService;
         }
+        //////اضافه کردن تیکت جدید توسط کارمندان خاشع//////
         [HttpPost]
         public async Task<ActionResult<bool>> PostAddTicketingChat(DeveloperTicketViewModel model)
         {
@@ -47,10 +48,11 @@ namespace NewCrm.API.Controllers
                 Confidential = false,
                 Resiver = s.PersonNational_ID,
                 Sender = userId,
+                Seen = false
             };
             return await _developerTicketService.AddTicketingChat(ticketingChat);
         }
-
+        ////////اضافه کردن پیام جدید در گفت و گوها//////////
         [HttpPost]
         [Route("AddDeveloperTicketChat")]
         public async Task<ActionResult<bool>> PostAddTicketingChat(DeveloperTicketigViewModel model)
@@ -83,19 +85,23 @@ namespace NewCrm.API.Controllers
                 PersonNational_ID = userId,
                 Sender = userId,
                 Resiver = u,
-                Confidential = t
+                Confidential = t,
+                Seen =false
             };
             return await _developerTicketService.AddComment(ticketingChat);
         }
+        //////ثبت آیدی فردی که قرار است تیکت به آن ارسال شود////////
         [HttpPut("{id}")]
         public async Task<bool> PutResiverIcket(int id, DeveloperTicketigViewModel user)
         {
             return await _developerTicketService.PutResiverDeveloper(id, user);
         }
+        //////ویرایش وضعیت پیام های موجود در یک تیکت از خوانده نشده به خوانده شده/////
         [Route("Putseen")]
         public async Task<bool> PutSeen(int id)
         {
-            return await _developerTicketService.PutSeen(id);
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;
+            return await _developerTicketService.PutSeen(id,userId);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using NewCrm.DataLayer.Entities.TicketForDeveloper;
 using NewCrm.DataLayer.Entities.Ticketing;
+using NewCrm.DataLayer.Entities.Upload;
 using NewCrm.DataLayer.Entities.User;
 
 namespace NewCrm.DataLayer.Context
@@ -26,6 +27,7 @@ namespace NewCrm.DataLayer.Context
         public DbSet<AccessModifier> AccessModifiers { get; set; }
         public DbSet<DeveloperTicket>  DeveloperTickets { get; set; }
         public DbSet<DeveloperTicketChat>  DeveloperTicketChats { get; set; }
+        public DbSet<ServiceFileUpload>   ServiceFileUploads { get; set; }
         #endregion
 
 
