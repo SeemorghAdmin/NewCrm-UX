@@ -14,7 +14,10 @@ namespace NewCrm.Core.Services
     {
         private nernContext _context;
 
-       
+        public UnivercityService(nernContext nernContext)
+        {
+            _context = nernContext;
+        }
 
         public async Task<bool> Delete(long id)
         {
@@ -55,7 +58,6 @@ namespace NewCrm.Core.Services
         
         public async Task<IEnumerable<ServiceFormViewModel>> GetServiceForm()
         {
-
             var query = await (from s in _context.ServiceFormRequest
                                join u in _context.University on s.UniId equals u.UniNationalId
                                select new

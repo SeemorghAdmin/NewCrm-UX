@@ -196,5 +196,23 @@ namespace NewCrm.API.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<bool>> PutStaff(int id, Staff staff)
+        {
+            if (id.ToString() != staff.PersonNational_ID)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _staffService.PutStaff(id, staff);
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                return NotFound(false);
+            }
+        }
     }
 }

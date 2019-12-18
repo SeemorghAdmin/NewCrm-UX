@@ -25,5 +25,12 @@ namespace NewCrm.Core.Services
 
             return true;
         }
+
+        public async Task<bool> PutStaff(int id, Staff staff)
+        {
+            var st = await _context.Staffs.SingleOrDefaultAsync(a => a.PersonNational_ID == id.ToString());
+
+            return true;
+        }
     }
 }
