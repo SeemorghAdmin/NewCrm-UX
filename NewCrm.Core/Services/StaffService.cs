@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using NewCrm.DataLayer.Entities.User;
 using NewCrm.Core.Services.Interfaces;
 using System.Linq;
+using NewCrm.Core.DTOs;
 
 namespace NewCrm.Core.Services
 {
@@ -49,7 +50,27 @@ namespace NewCrm.Core.Services
         public async Task<bool> PutStaff(int id, Staff staff)
         {
             var st = await _context.Staffs.SingleOrDefaultAsync(a => a.PersonNational_ID == id.ToString());
-
+            var person = await _context.People.SingleOrDefaultAsync(a => a.PersonNational_ID == id.ToString());
+            st.Address = register.Address;
+            st.EduDegree = register.EduDegree;
+            st.EduField = register.EduField;
+            st.PositionId = register.PositionId;
+            st.StaffNumber = register.StaffNumber;
+            st.TeleNumber = register.TeleNumber;
+            
+            person.BirthDate = new DateTime(register.BirthDate);
+            person.FirstName = register.FirstName;
+            person.LastName = register.LastName;
+            person.FatherName = register.FatherName;
+            person.ShenasNum = register.ShenasNum;
+            person.ShenasSerial = register.ShenasSerial;
+            person.LastEditTime = DateTime.Now;
+            
+            
+            _context.Entry(st).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            _context.Entry(person).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return true;
         }
     }

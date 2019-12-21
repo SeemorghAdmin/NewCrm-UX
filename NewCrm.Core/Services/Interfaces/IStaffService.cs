@@ -1,4 +1,5 @@
-﻿using NewCrm.DataLayer.Entities.User;
+﻿using NewCrm.Core.DTOs;
+using NewCrm.DataLayer.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,6 @@ namespace NewCrm.Core.Services.Interfaces
         Task<IEnumerable<Staff>> People();
         Task<bool> AddStaff(Staff staff);
 
-        Task<bool> PutStaff(int id, Staff staff);
+        Task<bool> PutStaff(int id, RegisterStaffViewModel staff);
     }
 }

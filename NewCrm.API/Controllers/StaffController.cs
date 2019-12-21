@@ -202,9 +202,9 @@ namespace NewCrm.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> PutStaff(int id, Staff staff)
+        public async Task<ActionResult<bool>> PutStaff(int id, RegisterStaffViewModel staff)
         {
-            if (id.ToString() != staff.PersonNational_ID)
+            if (id.ToString() != staff.PersonNationalId)
             {
                 return BadRequest();
             }
