@@ -8,6 +8,7 @@ namespace NewCrm.Core.Services.Interfaces
 {
     public interface IStaffService
     {
+        Task<IEnumerable<Staff>> People();
         Task<bool> AddStaff(Staff staff);
 
         Task<bool> PutStaff(int id, Staff staff);

@@ -195,6 +195,11 @@ namespace NewCrm.API.Controllers
                 return person;
             }
         }
+        [HttpGet]
+        public async Task<IEnumerable<Staff>> GetStaff()
+        {
+            return await _staffService.People();
+        }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<bool>> PutStaff(int id, Staff staff)
