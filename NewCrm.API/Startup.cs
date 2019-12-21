@@ -72,7 +72,9 @@ namespace NewCrm.API
             services.AddTransient<IUnivercityService, UnivercityService>();
             services.AddTransient<IUniReport, UniReport>();
             services.AddTransient<IDeveloperTicketService,DeveloperTicketService >();
-            services.AddTransient<IUniversity, UniversityService>();
+            services.AddTransient<IUniPreData, AddUniPreData>();
+
+
             #endregion
 
             #region JWT

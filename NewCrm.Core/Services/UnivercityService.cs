@@ -49,14 +49,15 @@ namespace NewCrm.Core.Services
             var query = from u in _context.University
                         select new
                         {
-                            u.TypeVal,
+                            u.TypeVal,  
                             u.UniStatus,
                             u.UniSubCode
-                        };
+                           
+                        }; 
             return query;
         }
         
-        public async Task<IEnumerable<ServiceFormViewModel>> GetServiceForm()
+        public async Task<IEnumerable<ServiceFormViewModel>> GetServiceForm()  
         {
             var query = await (from s in _context.ServiceFormRequest
                                join u in _context.University on s.UniId equals u.UniNationalId
