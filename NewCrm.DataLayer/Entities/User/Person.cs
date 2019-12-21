@@ -12,11 +12,13 @@ namespace NewCrm.DataLayer.Entities.User
         public string PersonNational_ID { get; set; }
 
         [MaxLength(50)]
-        [Required]
+        [Display(Name = "نام")]
+        [Required(ErrorMessage ="لطفا {0} را وارد نمایید")]
         public string FirstName { get; set; }
 
         [MaxLength(50)]
-        [Required]
+        [Display(Name = "نام خانوادگی")]
+        [Required(ErrorMessage = "لطفا {0} را وارد نمایید")]
         public string LastName { get; set; }
 
         [MaxLength(50)]
@@ -36,11 +38,13 @@ namespace NewCrm.DataLayer.Entities.User
         public string ShenasSerial { get; set; }
 
         [MaxLength(100)]
-        [Required]
+        [Display(Name = "ایمیل")]
+        [Required(ErrorMessage = "لطفا {0} را وارد نمایید")]
         public string Email { get; set; }
 
         [MaxLength(100)]
-        [Required]
+        [Display(Name = "نام کاربری")]
+        [Required(ErrorMessage = "لطفا {0} را وارد نمایید")]
         public string UserName { get; set; }
 
         [MaxLength(64)]

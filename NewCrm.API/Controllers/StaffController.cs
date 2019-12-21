@@ -40,6 +40,10 @@ namespace NewCrm.API.Controllers
         [HttpPost]
         public async Task<ActionResult<bool>> PostStaff(RegisterStaffViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("لطفاً فیلد های مشخص شده را تکمیل نمایید");
+            }
             if (await _personService.IsExistUserName(model.UserName))
             {
                 return BadRequest("نام کاربری تکراری میباشد");

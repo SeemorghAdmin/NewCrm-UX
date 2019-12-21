@@ -11,11 +11,11 @@ namespace NewCrm.DataLayer.Entities.User
         [Key]
         public int Staff_ID { get; set; }
 
-        [Required]
+
         [MaxLength(50)]
         public string StaffNumber { get; set; }
 
-        [Required]
+        [MaxLength(50)]
         public string PositionId { get; set; }
 
         public string Address { get; set; }
