@@ -208,20 +208,24 @@ namespace NewCrm.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<bool>> PutStaff(int id, RegisterStaffViewModel staff)
         {
-            if (id.ToString() != staff.PersonNationalId)
-            {
-                return BadRequest();
-            }
+           
 
             try
             {
                 await _staffService.PutStaff(id, staff);
                 return Ok(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return NotFound(false);
             }
+        }
+
+        [HttpGet]
+        [Route("geteditstaff")]
+        public async Task<RegisterStaffViewModel> GetStaffEdit(int id)
+        {
+            return await _staffService.GetStaffEdit(id.ToString());
         }
     }
 }

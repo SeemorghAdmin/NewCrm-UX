@@ -28,6 +28,29 @@ namespace NewCrm.Core.Services
             return true;
         }
 
+        public async Task<RegisterStaffViewModel> GetStaffEdit(string id)
+        {
+            var query = await (from s in _context.People
+                               join u in _context.Staffs on s.PersonNational_ID equals u.PersonNational_ID
+                               select new RegisterStaffViewModel
+                               {
+                                   Address = u.Address,
+                                   BirthDate = Convert.ToInt32(s.BirthDate.Year),
+                                   EduDegree = u.EduDegree,
+                                   EduField = u.EduField,
+                                   PersonNationalId = u.PersonNational_ID,
+                                   StaffNumber = u.StaffNumber,
+                                   TeleNumber = u.TeleNumber,
+                                   FirstName = s.FirstName,
+                                   LastName = s.LastName,
+                                   FatherName = s.FatherName,
+                                   ShenasNum = s.ShenasNum,
+                                   ShenasSerial = s.ShenasSerial,
+                                   PositionId = u.PositionId
+                               }).ToListAsync();
+            return query[0];
+        }
+
         public async Task<IEnumerable<Staff>> People()
         {
             var Staff = await(from a in _context.Staffs.Include(a => a.Person)
@@ -65,12 +88,21 @@ namespace NewCrm.Core.Services
             person.ShenasNum = register.ShenasNum;
             person.ShenasSerial = register.ShenasSerial;
             person.LastEditTime = DateTime.Now;
-            
+
             
             _context.Entry(st).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
             _context.Entry(person).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return true;
         }
     }
