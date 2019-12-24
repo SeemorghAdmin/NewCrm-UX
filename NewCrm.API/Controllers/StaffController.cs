@@ -170,6 +170,12 @@ namespace NewCrm.API.Controllers
                     person.Role1 = 2;
                     person.Role2 = 2;
                 }
+                if(model.type == "Customer")
+                {
+                    await _personService.AddPerson(person);
+                }
+                else
+                { 
                 Staff staff = new Staff()
                 {
                     Address = null,
@@ -179,8 +185,11 @@ namespace NewCrm.API.Controllers
                     PositionId = null,
                     StaffNumber = model.Id,
                     TeleNumber = null
+
                 };
-                await _staffService.AddStaff(staff);
+                    await _staffService.AddStaff(staff);
+                }
+               
                 //ارسال توکن به مرورگر کاربر
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
