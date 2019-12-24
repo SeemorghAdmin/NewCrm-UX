@@ -7,6 +7,7 @@ using System.Text;
 
 namespace NewCrm.DataLayer.Entities.Ticketing
 {
+    //ایجاد کلاس برای تیکت ها
    public class Ticket
     {
         [Key]

@@ -7,6 +7,7 @@ namespace NewCrm.DataLayer.Entities.Ticketing
 {
    public class ServiceType
     {
+        //ایجاد کلاس برای نوع سرویس
         [Key]
         public int ServiceType_ID { get; set; }
         [MaxLength(10)]

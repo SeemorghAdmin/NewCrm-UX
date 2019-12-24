@@ -7,6 +7,7 @@ using System.Text;
 
 namespace NewCrm.DataLayer.Entities.TicketForDeveloper
 {
+    //ایجاد کلاس مربوط به تیکت هایی که کارمندان به برنامه نویسان ارسال میکنند
   public  class DeveloperTicket
     {
         [Key]

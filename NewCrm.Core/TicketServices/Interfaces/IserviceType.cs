@@ -8,6 +8,7 @@ namespace NewCrm.Core.TicketServices.Interfaces
 {
    public interface IserviceType
     {
+        //اینترفیس مربوط به اضافه کردن نوع سرویس
         Task<bool> AddServiceType(ServiceType ticketServiceType);
     }
 }

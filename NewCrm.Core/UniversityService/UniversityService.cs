@@ -13,12 +13,15 @@ namespace NewCrm.Core.UniversityService
     public class UniversityService : IUniversity
     {
         private nernContext  _context;
+        //Status ایجاد لیستی از کلاس 
         List<Status> status;
+       // SubStatus ایجاد لیستی از کلاس
         List<SubStatus> substatus;
 
         public UniversityService(nernContext context)
         {
             _context = context;
+            //پر کردن لیست ایجاد شده با پارامتر های زیر
             status = new List<Status>
             {
                  new Status {Id = 1, Text="انتظار برای تایید درخواست عضویت" },
@@ -37,6 +40,7 @@ namespace NewCrm.Core.UniversityService
                  new Status {Id = 3005, Text="تایید ویرایش دانشگاه ها" },
                  new Status {Id = 3006, Text="ثبت سرویس فرم" },
             };
+            //پر کردن لیست تشکیل شده با پارامتر های زیر
             substatus = new List<SubStatus>
             {
                  new SubStatus {Id = 0, Text="مشکل در فایل درخواست عضویت" },
@@ -53,6 +57,7 @@ namespace NewCrm.Core.UniversityService
                  new SubStatus {Id = 1001, Text="فرمت قرارداد ارسالی مطابقت ندارد" },
             };
         }
+        //متد ویرایش پارامترهای تعیین شده در مای اس کیو ال
         public async Task<bool> UpdateUniversity(UniStatusLogViewModel uniStatusLogViewModel,string id)
         {
             long b = Convert.ToInt64(id);
@@ -62,7 +67,9 @@ namespace NewCrm.Core.UniversityService
             University university = await _context.University.SingleOrDefaultAsync(au => au.UniNationalId == uniStatusLogViewModel.UniNationalId);
             university.UniStatus = uniStatusLogViewModel.UniStatus;
             university.UniSubStatus = uniStatusLogViewModel.UniSubStatus;
+            //با استفاده از کد خط زیر پارامتر های جا گذاری شده در جدول ویرایش میشوند 
             _context.Entry(university).State = EntityState.Modified;
+            //ایجاد یک نمونه از کلاس مربوطه
                 UniStatusLog uniStatusLog = new UniStatusLog();
 
             if(uniStatusLogViewModel.msg == "")
@@ -91,6 +98,7 @@ namespace NewCrm.Core.UniversityService
                     uniStatusLog.UniSubStatus = uniStatusLogViewModel.UniSubStatus;
                 }
                uniStatusLog.ApprovalAdminId = admin.Id;
+            //اضافه کردن پارامتر های جاگذاری شده در جدول مای اس کیو ال
                await _context.UniStatusLog.AddAsync(uniStatusLog);
                 await _context.SaveChangesAsync();
                 return true;

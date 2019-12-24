@@ -17,6 +17,7 @@ namespace NewCrm.Core.TicketServices
         {
             _context = context;
         }
+        //اضافه کردن نوع سرویس به جدول دیتابیس
         public async Task<bool> AddServiceType(ServiceType ticketServiceType)
         {
           await _context.ServiceTypes.AddAsync(ticketServiceType);

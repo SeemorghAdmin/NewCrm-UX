@@ -7,6 +7,7 @@ using System.Text;
 
 namespace NewCrm.DataLayer.Entities.TicketForDeveloper
 {
+    //ایجاد کلاس برای ذخیره و خواندن چت ها و گفت و گو هایی که در تیکت های ارسالی اتفاق می افتد
   public  class DeveloperTicketChat
     {
         [Key]

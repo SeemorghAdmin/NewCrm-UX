@@ -50,7 +50,7 @@ namespace NewCrm.Core.Services
                                }).ToListAsync();
             return query[0];
         }
-
+        //خواندن لیستی از اطلاعات از جدول دیتابیس
         public async Task<IEnumerable<Staff>> People()
         {
             var Staff = await(from a in _context.Staffs.Include(a => a.Person)

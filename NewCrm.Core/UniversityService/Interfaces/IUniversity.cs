@@ -8,6 +8,7 @@ namespace NewCrm.Core.UniversityService.Interfaces
 {
    public interface IUniversity
     {
+        //ایجاد اینترفیس برای ویرایش و اضافه کردن اطلاعات همزمان در دو جدول//Uiversity & UniStatusLog
         Task<bool> UpdateUniversity(UniStatusLogViewModel  uniStatusLogViewModel,string id);
     }
 }

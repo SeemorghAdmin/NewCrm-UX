@@ -16,7 +16,7 @@ namespace NewCrm.Core.TicketServices
         {
             _context = context;
         }
-
+        //خواندن سویس ها از جدول دیتابیس
         public IEnumerable<DataLayer.Entities.Ticketing.Services> GetServiceAsync(int id)
         {
             var service = from a in _context.Services

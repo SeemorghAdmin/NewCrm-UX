@@ -7,6 +7,7 @@ using System.Text;
 
 namespace NewCrm.DataLayer.Entities.Ticketing
 {
+    //ایجاد کلاس برای ذخیره و خواندن چت هایی که در تیکت ها اتفاق می افتد
    public class TicketingChat
     {
         [Key]

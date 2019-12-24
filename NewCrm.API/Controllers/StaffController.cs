@@ -108,13 +108,16 @@ namespace NewCrm.API.Controllers
         [Route("LandingPagePerson")]
         public async Task<ActionResult<Person>> PostLandingPageStaff(LandingPageViewModel model)
         {
+            //ایجاد یک شرط برای چک کردن اینکه اطلاعات کاربر داخل دیابیس وجود دارد یا خیر
             if (await _personService.IsExistNationalId(model.Id))
             {
+                //در صورت وجود اطلاعات فرد را به دست می اوریم
                 Person a = await _context.People.SingleOrDefaultAsync(r => r.PersonNational_ID == model.Id);
                 a.Email = model.Email;
                 a.FirstName = model.Fname;
                 a.LastName = model.Lname;
                 a.PersonNational_ID = model.Id;
+                //اطلاعات فرد درصورت بروز تغییرات ویرایش می شود
                 _context.Entry(a).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
                 //ارسال توکن به مرورگر کاربر
@@ -137,6 +140,7 @@ namespace NewCrm.API.Controllers
             }
             else
             {
+                //اگر اطلاعات فرد مورد نظر در دخل دیتابیس وجود نداشت عملیات درج اطلاعات در دیتابیس آغاز می شود
                 Person person = new Person()
                 {
                     PersonNational_ID = model.Id,
@@ -211,6 +215,7 @@ namespace NewCrm.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<Staff>> GetStaff()
         {
+            //ارسال اطلاعات کارمندان و مدیران خاشع 
             return await _staffService.People();
         }
 
