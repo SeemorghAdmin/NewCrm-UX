@@ -55,7 +55,7 @@ namespace NewCrm.Core.Services
         {
             var Staff = await(from a in _context.Staffs.Include(a => a.Person)
                        
-                                where a.Person.Role1 ==2 && a.Person.Role2 == 2
+                                where a.Person.Role1 ==2 && (a.Person.Role2 == 2 || a.Person.Role2 == 1)
                                 select new Staff
                                 {
                                     StaffNumber = a.StaffNumber,
