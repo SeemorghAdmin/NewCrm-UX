@@ -157,7 +157,7 @@ namespace NewCrm.API.Controllers
                     LastEditTime = DateTime.Now,
                     IsActive = true,
                     NeedChangePassword = false,
-                    Password = PasswordHasher.ComputeSha256Hash($"seemsys123456")
+                    Password = PasswordHasher.ComputeSha256Hash($"{FixedText.FixedEmail(model.Email)}seemsys123456")
                 };
 
                 if (model.type == "Customer")
