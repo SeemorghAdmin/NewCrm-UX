@@ -11,6 +11,7 @@ namespace NewCrm.Core.Services.Interfaces
         Task<IEnumerable<object>> GetUniPreData();
 
         Task<bool> AddUniInfo(UniPreData uniPreData);
-        
+
+        Task<bool> IsExistNational(string id);
     }
 }

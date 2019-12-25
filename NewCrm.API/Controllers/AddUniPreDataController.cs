@@ -29,10 +29,15 @@ namespace NewCrm.API.Controllers
         }
 
         //بالای صفحه برای ثبت دانشگاه در دیتابیس به پست نیاز است.
+        // در صورتی که کد دانشگاه تکراری باشد پیغام خطا ارسال می شود.
         // POST: api/AddUniPreData
         [HttpPost]
-        public async Task<bool> Post(UniPreData uniPreData)
-         {
+        public async Task<ActionResult<bool>> Post(UniPreData uniPreData)
+        {
+            if (await _service.IsExistNational(uniPreData.Unicode))
+            {
+                return BadRequest("کد دانشگاه تکراری است.");
+            }
             await _service.AddUniInfo(uniPreData);
             return true;
         }
@@ -49,3 +54,4 @@ namespace NewCrm.API.Controllers
         }
     }
 }
+

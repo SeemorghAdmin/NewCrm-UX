@@ -1,4 +1,5 @@
-﻿using NewCrm.Core.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using NewCrm.Core.DTOs;
 using NewCrm.Core.Services.Interfaces;
 using NewCrm.DataLayer.Entities.EC;
 using System;
@@ -12,9 +13,9 @@ namespace NewCrm.Core.Services
     {
         private nernContext _context;
 
-        public AddUniPreData(nernContext nernContext)
+        public AddUniPreData(nernContext context)
         {
-            _context = nernContext;
+            _context = context;
         }
 
 
@@ -51,7 +52,18 @@ namespace NewCrm.Core.Services
             return query;
         }
 
-
-
+        public async Task<bool> IsExistNational(string id)
+        {
+            var f = await _context.PreUniversityData.ToListAsync();
+            foreach (var item in f)
+            {
+                if (item.UniInternalCode == Convert.ToInt64(id))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
+
