@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using NewCrm.Core.DTOs;
 using NewCrm.Core.Services.Interfaces;
 using System.Collections.Generic;
@@ -48,7 +53,8 @@ namespace NewCrm.API.Controllers
 
 
 
-
+        //دریافت اطلاعات فقط برای جدول گزارش کمیت مشترکین
+        //در ای پی آی باید آدرس روت نوشته شود تا اطلاعات مورد نظر را نمایش دهد.
         [HttpGet]
         [Route("ReportSubs")]
         public async Task<IEnumerable<object>> GetUni()

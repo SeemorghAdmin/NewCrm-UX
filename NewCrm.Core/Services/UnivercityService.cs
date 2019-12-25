@@ -44,6 +44,9 @@ namespace NewCrm.Core.Services
             return true;
         }
 
+
+        //در دیتابیس از جدول یونیورسیتی سه مقدار بخش، نوع و وضعیت هر دانشگاه را می خواند و به انگولار می فرستد.
+        //Angular = report subs
         public async Task<IEnumerable<object>> GetAllUniversity()
         {
             var query = from u in _context.University
@@ -56,6 +59,8 @@ namespace NewCrm.Core.Services
                         }; 
             return query;
         }
+        //-----------------------------------------------------
+
         
         public async Task<IEnumerable<ServiceFormViewModel>> GetServiceForm()  
         {
