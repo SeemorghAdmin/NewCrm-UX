@@ -11,5 +11,6 @@ namespace NewCrm.Core.Services.Interfaces
         Task<IEnumerable<object>> GetUniPreData();
 
         Task<bool> AddUniInfo(UniPreData uniPreData);
+        
     }
 }
