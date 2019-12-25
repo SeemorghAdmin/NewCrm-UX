@@ -18,6 +18,9 @@ namespace NewCrm.API.Controllers
         {
             _service = uniPreData;
         }
+
+
+        //در جدول دوم که پایین صفحه نمایش داده می شود، اطلاعات توسط این قسمت از دیتابیس خوانده می شوند.
         // GET: api/AddUniPreData
         [HttpGet]
         public async Task<IEnumerable<object>> GetPreUiData()
@@ -25,11 +28,13 @@ namespace NewCrm.API.Controllers
             return await _service.GetUniPreData();
         }
 
-
+        //بالای صفحه برای ثبت دانشگاه در دیتابیس به پست نیاز است.
         // POST: api/AddUniPreData
         [HttpPost]
-        public void Post([FromBody] string value)
-        {
+        public async Task<bool> Post(UniPreData uniPreData)
+         {
+            await _service.AddState(uniPreData);
+            return true;
         }
 
         // PUT: api/AddUniPreData/5
@@ -39,7 +44,6 @@ namespace NewCrm.API.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
         public void Delete(int id)
         {
         }

@@ -1,4 +1,4 @@
-﻿using NewCrm.Core.DTOs;
+﻿ using NewCrm.Core.DTOs;
 using NewCrm.DataLayer.Entities.User;
 using System;
 using System.Collections.Generic;

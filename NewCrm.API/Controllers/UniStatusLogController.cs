@@ -82,7 +82,7 @@ namespace NewCrm.API.Controllers
                     return BadRequest();
                 }
             }
-            catch (Exception ex)
+            catch (Exception  ex)
             {
                 return StatusCode(500, "Internal server error");
             }
