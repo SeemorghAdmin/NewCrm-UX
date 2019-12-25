@@ -16,5 +16,7 @@ namespace NewCrm.Core.Services.Interfaces
         Task<bool> DeleteServiceForm(int id);
 
         Task<IEnumerable<object>> GetAllUniversity();
+
+        Task<bool> PutUni(UniversityViewModel model);
     }
 }

@@ -15,5 +15,7 @@ namespace NewCrm.Core.Services.Interfaces
         Task<bool> PutStaff(int id, RegisterStaffViewModel staff);
 
         Task<RegisterStaffViewModel> GetStaffEdit(string id);
+
+        Task<bool> DeleteStaff(string id);
     }
 }

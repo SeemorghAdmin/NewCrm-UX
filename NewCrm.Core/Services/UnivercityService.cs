@@ -102,5 +102,29 @@ namespace NewCrm.Core.Services
 
             return list;
         }
+
+        public async Task<bool> PutUni(UniversityViewModel model)
+        {
+            var uni = await _context.University.SingleOrDefaultAsync(a => a.UniNationalId == model.UniNationalId);
+            uni.Address = model.UniAddress;
+            uni.EcoCode = model.UniEcoCode;
+            uni.FaxNo = model.AgentFaxNo;
+            uni.PostalCode = model.UniPostalCode;
+            uni.SignatoryName = model.AgentFname;
+            uni.SignatoryNationalId = model.UniSignatoryNationalId;
+            uni.SignatoryPos = model.UniSignatoryPos;
+            uni.SiteAddress = model.UniWebsite;
+            uni.TeleNo = model.UniTelNo;
+            uni.TopManagerName = model.UniTopManagerName;
+            uni.TopManagerPos = model.UniTopManagerPos;
+            uni.UniName = model.UniName;
+            uni.UniNationalId = model.UniNationalId;
+            uni.UniPublicEmail = model.UniEmail;
+
+            _context.Entry(uni).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

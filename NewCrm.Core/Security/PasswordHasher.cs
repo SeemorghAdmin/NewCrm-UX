@@ -7,6 +7,7 @@ namespace NewCrm.Core.Security
 {
     public class PasswordHasher
     {
+        // هش کردن پسورد با الگوریتم sha256
         public static string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256   

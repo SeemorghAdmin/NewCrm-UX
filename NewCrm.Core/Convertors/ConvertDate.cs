@@ -5,6 +5,7 @@ namespace NewCrm.Core.Convertors
 {
     public class ConvertDate
     {
+        // تبدیل تاریخ به شمسی
         public static string ConvertSha(DateTime dateTime)
         {
             PersianCalendar pc = new PersianCalendar();
@@ -14,7 +15,7 @@ namespace NewCrm.Core.Convertors
                        
             return da;
         }
-
+        // تبدیل تاریخ به میلادی
         public static DateTime ConvetMil(DateTime year)
         {
             PersianCalendar pc = new PersianCalendar();

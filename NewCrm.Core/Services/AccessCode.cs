@@ -11,6 +11,7 @@ namespace NewCrm.Core.Services
 {
     public class AccessCode : IAccessCode
     {
+        
         private readonly NewCrmContext _context;
 
         public AccessCode(NewCrmContext context)

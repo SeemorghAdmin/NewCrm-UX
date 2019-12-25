@@ -13,8 +13,10 @@ namespace NewCrm.API.Controllers
     [ApiController]
     public class UniReportController : ControllerBase
     {
+        // ایجاد شی از سروریس گزارش دانشگاه ها
         private readonly IUniReport _service;
 
+        // مقدار دهی سرویس گزارش دانشگاه ها
         public UniReportController(IUniReport service)
         {
             _service = service;
