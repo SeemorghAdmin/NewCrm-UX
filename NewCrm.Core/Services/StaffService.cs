@@ -28,6 +28,15 @@ namespace NewCrm.Core.Services
             return true;
         }
 
+        public async Task<bool> DeleteStaff(string id)
+        {
+            var staff = await _context.People.SingleOrDefaultAsync(a => a.PersonNational_ID == id);
+            staff.IsActive = false;
+            _context.Entry(staff).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<RegisterStaffViewModel> GetStaffEdit(string id)
         {
             var query = await (from s in _context.People
@@ -48,7 +57,8 @@ namespace NewCrm.Core.Services
                                    ShenasSerial = s.ShenasSerial,
                                    PositionId = u.PositionId
                                }).ToListAsync();
-            return query[0];
+            var user = query.SingleOrDefault(a => a.PersonNationalId == id);
+            return user;
         }
         //خواندن لیستی از اطلاعات از جدول دیتابیس
         public async Task<IEnumerable<Staff>> People()

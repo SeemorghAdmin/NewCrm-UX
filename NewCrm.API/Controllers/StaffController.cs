@@ -24,11 +24,13 @@ namespace NewCrm.API.Controllers
     [ApiController]
     public class StaffController : ControllerBase
     {
+        // ایجاد شی از استف سرویس و پرسن سرویس
         private IStaffService _staffService;
         private IPersonService _personService;
         private NewCrmContext _context;
+        // فراخوانی اپ ستینگ برای کلید خارجی jwt
         private readonly AppSettings _appSettings;
-
+        // مقدار دهی اشیا لازم در کانستراکتور
         public StaffController(IPersonService personService, IStaffService staffService, NewCrmContext context, IOptions<AppSettings> appSettings)
         {
             _staffService = staffService;
@@ -38,27 +40,35 @@ namespace NewCrm.API.Controllers
         }
 
         [HttpPost]
+        //post 
+        // api/staff
         public async Task<ActionResult<bool>> PostStaff(RegisterStaffViewModel model)
         {
+            // چک کردن معتبر بودن مدل
             if (!ModelState.IsValid)
             {
+                // ارسال خطا
                 return BadRequest("لطفاً فیلد های مشخص شده را تکمیل نمایید");
             }
+            // چک کردن یونیک بودن نام کاربری
             if (await _personService.IsExistUserName(model.UserName))
             {
+                // ارسال خطای تکراری بودن نام کاربری در صورت یونیک نبودن
                 return BadRequest("نام کاربری تکراری میباشد");
             }
-
+            // چک کردن یونیک بودن شماره ملی
             if (await _personService.IsExistNationalId(model.PersonNationalId))
             {
+                // ارسال خطا در صورت تکراری بودن شماره ملی
                 return BadRequest("شماره ملی تکراری میباشد");
             }
-
+            // چک کردن یونیک بودن ایمیل
             if (await _personService.IsExistEmail(model.Email))
             {
+                // ارسال خطا در صورت یونیک نبودن ایمیل کاربر
                 return BadRequest("ایمیل وارد شده قبلا ثبت شده است");
             }
-
+            // ایجاد شی از پرسن
             Person person = new Person()
             {
                 PersonNational_ID = model.PersonNationalId,
@@ -78,17 +88,20 @@ namespace NewCrm.API.Controllers
                 NeedChangePassword = true,
                 Password = PasswordHasher.ComputeSha256Hash($"{model.UserName}seemsys123456")
             };
-
+            // قرار دادن رول 2 برای کاربران خاشع
             person.Role1 = 2;
+
+            //  اگر مقدار ادمین خاشع برابر ترو باشد 
             if (model.IsAdmin == true)
             {
+                // رول کاربر برابر یک میشود
                 person.Role2 = 1;
             }
             else
             {
                 person.Role2 = 2;
             }
-
+            // ایجاد شی جدید از اسف
             Staff staff = new Staff()
             {
                 Address = model.Address,
@@ -100,7 +113,7 @@ namespace NewCrm.API.Controllers
                 TeleNumber = model.TeleNumber
             };
 
-
+            // ارسال استف به سرویس و متد اد اسف برای ذخیره سازی
             return await _staffService.AddStaff(staff);
         }
 
@@ -212,34 +225,50 @@ namespace NewCrm.API.Controllers
                 return person;
             }
         }
+
         [HttpGet]
+        // ارسال کاربران خاشع
+        // api/staff
         public async Task<IEnumerable<Staff>> GetStaff()
         {
-            //ارسال اطلاعات کارمندان و مدیران خاشع 
+            // ارسال کل کاربران خاشع
             return await _staffService.People();
         }
 
         [HttpPut("{id}")]
+        //ویرایش استف
+        // api.staff/5
         public async Task<ActionResult<bool>> PutStaff(int id, RegisterStaffViewModel staff)
         {
-           
-
             try
             {
+                // ارسال استف به به سرویس و متد پوت استف
                 await _staffService.PutStaff(id, staff);
+                // ارسال اوکی در صورت موفقیت امیز بودن
                 return Ok(true);
             }
             catch (Exception ex)
             {
+                // ارسال نات فوند در صورت خطا
                 return NotFound(false);
             }
         }
 
         [HttpGet]
         [Route("geteditstaff")]
+        // api/staff/geteditstaff
         public async Task<RegisterStaffViewModel> GetStaffEdit(int id)
         {
+            // پیدا یوزر بر اساس ای دی
             return await _staffService.GetStaffEdit(id.ToString());
+        }
+
+        [HttpDelete("{id}")]
+        // api/staff/5
+        public async Task<bool> DeleteStaff(string id)
+        {
+            // حذف یوزر بر اساس ای دی
+            return await _staffService.DeleteStaff(id);
         }
     }
 }
