@@ -21,6 +21,7 @@ namespace NewCrm.API.Controllers
             _contextt = nernContext;
         }
         string gb;
+        string s;
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload2()
         {
@@ -33,6 +34,10 @@ namespace NewCrm.API.Controllers
                     if (key == "type")
                     {
                         gb = Request.Form[key];
+                    }
+                    if (key == "uNumber")
+                    {
+                        s = Request.Form[key];
                     }
                 }
                 ////////////ایجاد یک مونه کپی از فایل ارسالی در پوشه////
@@ -53,10 +58,10 @@ namespace NewCrm.API.Controllers
                     {
                         bytes = new byte[stream.Length];
                         stream.Read(bytes, 0, Convert.ToInt32(stream.Length));
-
+                        int u = Convert.ToInt32(s.ToString());
                         if (gb == "letter")
                         {
-                            ServiceFormRequest serviceFormRequest = _contextt.ServiceFormRequest.SingleOrDefault(s => s.Id == 56);
+                            ServiceFormRequest serviceFormRequest = _contextt.ServiceFormRequest.SingleOrDefault(s => s.Id == u);
                             serviceFormRequest.Letter = bytes;
                             serviceFormRequest.StatusVal = 3000;
                             _contextt.Entry(serviceFormRequest).State = EntityState.Modified;

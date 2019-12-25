@@ -28,7 +28,7 @@ namespace NewCrm.API.Controllers
         [HttpPost]
         public async Task<ActionResult<bool>> Post(UniStatusLogViewModel model)
         {
-            string userId = "452320496"; //User.Claims.First(c => c.Type == "seemsys").Value;       
+            string userId = User.Claims.First(c => c.Type == "seemsys").Value;       
             return await _university.UpdateUniversity(model,userId);
         }
         [HttpPost, DisableRequestSizeLimit]

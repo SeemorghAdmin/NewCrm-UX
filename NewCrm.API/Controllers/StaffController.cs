@@ -238,7 +238,7 @@ namespace NewCrm.API.Controllers
         [HttpPut("{id}")]
         //ویرایش استف
         // api.staff/5
-        public async Task<ActionResult<bool>> PutStaff(int id, RegisterStaffViewModel staff)
+        public async Task<ActionResult<bool>> PutStaff(string id, RegisterStaffViewModel staff)
         {
             try
             {
@@ -257,10 +257,10 @@ namespace NewCrm.API.Controllers
         [HttpGet]
         [Route("geteditstaff")]
         // api/staff/geteditstaff
-        public async Task<RegisterStaffViewModel> GetStaffEdit(int id)
+        public async Task<RegisterStaffViewModel> GetStaffEdit(string id)
         {
             // پیدا یوزر بر اساس ای دی
-            return await _staffService.GetStaffEdit(id.ToString());
+            return await _staffService.GetStaffEdit(id);
         }
 
         [HttpDelete("{id}")]

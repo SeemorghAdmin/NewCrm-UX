@@ -80,7 +80,7 @@ namespace NewCrm.Core.Services
             return Staff;
         }
 
-        public async Task<bool> PutStaff(int id, RegisterStaffViewModel register)
+        public async Task<bool> PutStaff(string id, RegisterStaffViewModel register)
         {
             var st = await _context.Staffs.SingleOrDefaultAsync(a => a.PersonNational_ID == id.ToString());
             var person = await _context.People.SingleOrDefaultAsync(a => a.PersonNational_ID == id.ToString());

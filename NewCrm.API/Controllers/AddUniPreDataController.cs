@@ -33,7 +33,7 @@ namespace NewCrm.API.Controllers
         [HttpPost]
         public async Task<bool> Post(UniPreData uniPreData)
          {
-            await _service.AddState(uniPreData);
+            await _service.AddUniInfo(uniPreData);
             return true;
         }
 

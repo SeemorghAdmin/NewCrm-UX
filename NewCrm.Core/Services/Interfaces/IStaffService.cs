@@ -12,7 +12,7 @@ namespace NewCrm.Core.Services.Interfaces
         Task<IEnumerable<Staff>> People();
         Task<bool> AddStaff(Staff staff);
 
-        Task<bool> PutStaff(int id, RegisterStaffViewModel staff);
+        Task<bool> PutStaff(string id, RegisterStaffViewModel staff);
 
         Task<RegisterStaffViewModel> GetStaffEdit(string id);
 
