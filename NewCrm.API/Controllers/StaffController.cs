@@ -238,7 +238,7 @@ namespace NewCrm.API.Controllers
         [HttpPut("{id}")]
         //ویرایش استف
         // api.staff/5
-        public async Task<ActionResult<bool>> PutStaff(int id, RegisterStaffViewModel staff)
+        public async Task<ActionResult<bool>> PutStaff(string id, RegisterStaffViewModel staff)
         {
             try
             {
