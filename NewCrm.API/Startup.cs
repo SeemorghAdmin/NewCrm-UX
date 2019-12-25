@@ -73,6 +73,7 @@ namespace NewCrm.API
             services.AddTransient<IUniReport, UniReport>();
             services.AddTransient<IDeveloperTicketService,DeveloperTicketService >();
             services.AddTransient<IUniPreData, AddUniPreData>();
+            services.AddTransient<IUniversity, UniversityService>();
 
 
             #endregion
