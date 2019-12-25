@@ -257,10 +257,10 @@ namespace NewCrm.API.Controllers
         [HttpGet]
         [Route("geteditstaff")]
         // api/staff/geteditstaff
-        public async Task<RegisterStaffViewModel> GetStaffEdit(int id)
+        public async Task<RegisterStaffViewModel> GetStaffEdit(string id)
         {
             // پیدا یوزر بر اساس ای دی
-            return await _staffService.GetStaffEdit(id.ToString());
+            return await _staffService.GetStaffEdit(id);
         }
 
         [HttpDelete("{id}")]
