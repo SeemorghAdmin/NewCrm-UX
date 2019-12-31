@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewCrm.Core.DTOs;
 using NewCrm.Core.UniversityService.Interfaces;
+using NewCrm.DataLayer.Context;
 using NewCrm.DataLayer.Entities.EC;
 using NewCrm.DataLayer.Entities.UniStatus;
 using NewCrm.DataLayer.Entities.UniSubStatus;

@@ -13,30 +13,36 @@ namespace NewCrm.Core.Services
 {
     public class StaffService : IStaffService
     {
+        // ایجاد شی دیتاکانتکس
         private NewCrmContext _context;
-
+        // مقدار دهی شی دیتاکانتکس در دیتابیس
         public StaffService(NewCrmContext context)
         {
             _context = context;
         }
+        // اضافه کردن استف به دیتابیس
         public async Task<bool> AddStaff(Staff staff)
         {
             await _context.Staffs.AddAsync(staff);
+            // ذخیره سازی دیتابیس
 
             await _context.SaveChangesAsync();
 
             return true;
         }
-
+        // حذف استف
         public async Task<bool> DeleteStaff(string id)
         {
             var staff = await _context.People.SingleOrDefaultAsync(a => a.PersonNational_ID == id);
+            // فالس کردن مقدار اکتیو استف
             staff.IsActive = false;
             _context.Entry(staff).State = EntityState.Modified;
+            // ذخیره سازی دیتابیس
+
             await _context.SaveChangesAsync();
             return true;
         }
-
+        // ارسال کاربر انتخابی برای ادیت کردن استف
         public async Task<RegisterStaffViewModel> GetStaffEdit(string id)
         {
             var query = await (from s in _context.People
@@ -79,18 +85,20 @@ namespace NewCrm.Core.Services
                                 }).ToListAsync();
             return Staff;
         }
-
+        // ادیت کردن استف
         public async Task<bool> PutStaff(string id, RegisterStaffViewModel register)
         {
+            // پیدا کردن استف و ئرسن بر اساس ای دی
             var st = await _context.Staffs.SingleOrDefaultAsync(a => a.PersonNational_ID == id.ToString());
             var person = await _context.People.SingleOrDefaultAsync(a => a.PersonNational_ID == id.ToString());
+            // قرار دادن مقدار جدید در استف
             st.Address = register.Address;
             st.EduDegree = register.EduDegree;
             st.EduField = register.EduField;
             st.PositionId = register.PositionId;
             st.StaffNumber = register.StaffNumber;
             st.TeleNumber = register.TeleNumber;
-            
+            //قرار دادن مقدار جدید در پرسن
             person.BirthDate = new DateTime(register.BirthDate);
             person.FirstName = register.FirstName;
             person.LastName = register.LastName;
@@ -99,7 +107,7 @@ namespace NewCrm.Core.Services
             person.ShenasSerial = register.ShenasSerial;
             person.LastEditTime = DateTime.Now;
 
-            
+            // اپدیت کردن استف در دیتابیس
             _context.Entry(st).State = EntityState.Modified;
             try
             {
@@ -110,8 +118,10 @@ namespace NewCrm.Core.Services
 
                 throw;
             }
-           
+           // اپدیت کردن پرسن در دیتابیس
             _context.Entry(person).State = EntityState.Modified;
+            // ذخیره سازی دیتابیس
+
             _context.SaveChanges();
             return true;
         }

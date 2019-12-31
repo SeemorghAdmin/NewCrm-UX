@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NewCrm.Core.DTOs;
 using NewCrm.Core.UniversityService.Interfaces;
+using NewCrm.DataLayer.Context;
 using NewCrm.DataLayer.Entities.EC;
 
 namespace NewCrm.API.Controllers

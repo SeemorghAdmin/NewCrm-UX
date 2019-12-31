@@ -7,39 +7,45 @@ using System.Linq;
 using NewCrm.DataLayer.Entities.EC;
 using Microsoft.EntityFrameworkCore;
 using NewCrm.Core.DTOs;
+using NewCrm.DataLayer.Context;
 
 namespace NewCrm.Core.Services
 {
     public class UnivercityService : IUnivercityService
     {
+        // ایجاد شی از دیتا کانتکس
         private nernContext _context;
-
+        // مقدار دهی دیتاکانتکس در کانستراکنور
         public UnivercityService(nernContext nernContext)
         {
             _context = nernContext;
         }
-
+        // حذف دانشگاه
         public async Task<bool> Delete(long id)
         {
+            // پیدا کردن دانشگاه
             var uni = await _context.University.SingleOrDefaultAsync(a => a.UniNationalId == id);
+            // قرار دادن مقدار فالس در فیلد اکتیو
             uni.Active = false;
             _context.Entry(uni).State = EntityState.Modified;
 
             var person = await _context.PersonalInfo.SingleOrDefaultAsync(a => a.Username == id.ToString());
             person.Active = false;
+            // اپدیت کردن در دیتا بیس
             _context.Entry(person).State = EntityState.Modified;
-
+            // ذخیره تغیرات دیتا ببیس
             await _context.SaveChangesAsync();
             return true;
         }
-
+        // حذف سرویس فرم
         public async Task<bool> DeleteServiceForm(int id)
         {
+            // پیدا کردن سرویس فرم
             var service = await _context.ServiceFormRequest.SingleOrDefaultAsync(a => a.Id == (long)id);
-
+            // قرار دادن مقدار فالس در فیلد اکتیو
             service.Active = false;
             _context.Entry(service).State = EntityState.Modified;
-
+            // ذخیره تغیرات دیتا ببیس
             await _context.SaveChangesAsync();
             return true;
         }
@@ -49,14 +55,14 @@ namespace NewCrm.Core.Services
         //Angular = report subs
         public async Task<IEnumerable<object>> GetAllUniversity()
         {
-            var query = from u in _context.University
-                        select new
-                        {
-                            u.TypeVal,  
-                            u.UniStatus,
-                            u.UniSubCode
-                           
-                        }; 
+            var query = await (from u in _context.University
+                               select new
+                               {
+                                   u.TypeVal,
+                                   u.UniStatus,
+                                   u.UniSubCode
+
+                               }).ToListAsync(); 
             return query;
         }
         //-----------------------------------------------------
@@ -102,10 +108,12 @@ namespace NewCrm.Core.Services
 
             return list;
         }
-
+        // ویرایش دانشگاه
         public async Task<bool> PutUni(UniversityViewModel model)
         {
+            // پیدا کردن دانشگاه براساس نشنال ایدی
             var uni = await _context.University.SingleOrDefaultAsync(a => a.UniNationalId == model.UniNationalId);
+            // قرار دادن مقادیر جدید در شی یونیور سیتی
             uni.Address = model.UniAddress;
             uni.EcoCode = model.UniEcoCode;
             uni.FaxNo = model.AgentFaxNo;
@@ -120,9 +128,9 @@ namespace NewCrm.Core.Services
             uni.UniName = model.UniName;
             uni.UniNationalId = model.UniNationalId;
             uni.UniPublicEmail = model.UniEmail;
-
+            // اپدیت کردن یونیورسیتی در دیتابیس
             _context.Entry(uni).State = EntityState.Modified;
-
+            // ذخیره تغیرات دیتابیس
             await _context.SaveChangesAsync();
             return true;
         }
