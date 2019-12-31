@@ -1,5 +1,7 @@
-﻿using NewCrm.Core.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using NewCrm.Core.DTOs;
 using NewCrm.Core.Services.Interfaces;
+using NewCrm.DataLayer.Context;
 using NewCrm.DataLayer.Entities.EC;
 using System;
 using System.Collections.Generic;
@@ -38,7 +40,7 @@ namespace NewCrm.Core.Services
         //از دیتابیس اطلاعات موجود در فیلدهای نوشته شده را می خواند.
         public async Task<IEnumerable<object>> GetUniPreData()
         {
-            var query = from u in _context.PreUniversityData
+            var query =await( from u in _context.PreUniversityData
                         select new
                         {
                             u.Id,
@@ -47,7 +49,7 @@ namespace NewCrm.Core.Services
                             u.UniInternalCode,
                             u.UniNationalCode,
                             u.SourceVal
-                        };
+                        }).ToListAsync();
             return query;
         }
 

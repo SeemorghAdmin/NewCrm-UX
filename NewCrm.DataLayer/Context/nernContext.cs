@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using NewCrm.DataLayer.Entities.EC;
 
-namespace NewCrm.DataLayer.Entities.EC
+namespace NewCrm.DataLayer.Context
 {
     public partial class nernContext : DbContext
     {

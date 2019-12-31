@@ -22,6 +22,7 @@ namespace NewCrm.Core.Services
         public async Task<bool> AddDeveloper(Developer developer)
         {
             await _context.Developers.AddAsync(developer);
+            await _context.SaveChangesAsync();
             return true;
         }
 
